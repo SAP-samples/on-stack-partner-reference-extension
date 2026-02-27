@@ -1,0 +1,48 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	core:require="{
+		DateType: 'sap/ui/model/odata/type/Date'
+	}"
+	xmlns:layout="sap.ui.layout">
+	<Dialog id="createcategoryDialog" afterClose="handler.onDiscard" title="{i18n>CreateCategoryTitle}" core:require="{handler: 'loyaltyhub/ext/controller/controller'}" afterOpen="handler.onAfterOpeningDialog">
+		<content>
+			<VBox id="id-vbox" class="sapUiSmallMargin">
+            <f:SimpleForm id="id-simpleform-createdialog">
+            <f:content>
+				<Label id="Categoryid" text="{i18n>CategoryID}"  required="true"/>
+				<Input 
+					placeholder="{i18n>CategoryIDPlaceholder}" 
+					id="Categoryidvalue" visible="true" 
+					editable="true" 
+					required="true"  
+					showValueHelp="true"
+					valueHelpRequest="handler.onValueHelpRequested"
+					change="handler.onInputChange"
+					liveChange="handler.onBlockTyping" />
+				<Label id="Status" text="{i18n>Status}" required="true"/>
+				<Input 
+					placeholder="{i18n>StatusPlaceholder}"
+					id="Statusidvalue" 
+					visible="true" 
+					editable="false"
+					required="false" />
+				<Label id="Startdate" text="{i18n>StartDate}"/>
+				<DatePicker id="Startdatevalue" placeholder="{i18n>StartDatePlaceholder}" dateValue="{dialog>/StartDate}" displayFormat="MMM dd, yyyy" editable="false"/>
+				<Label id="Enddate" text="{i18n>EndDate}"/>
+				<DatePicker id="Enddatevalue" placeholder="{i18n>EndDatePlaceholder}" dateValue="{dialog>/EndDate}" displayFormat="MMM dd, yyyy" editable="false"/>
+            </f:content>
+            </f:SimpleForm>
+			</VBox>
+			<!-- <OverflowToolbar id="idCretaeCategoryFooter"><ToolbarSpacer id="idTool"/><Button id="Create" type="Accept" text="{i18n>Create}" press="handler.fnActionCreateCategory"/><Button id="Cancel" type="Reject" text="{i18n>Cancel}" press="handler.onCancel"/></OverflowToolbar> -->
+		</content>
+		<beginButton>
+			<Button id="id-btn-CreateCategory" type="Emphasized" text="{i18n>Create}" press="handler.fnActionCreateCategory"/>
+		</beginButton>
+		<endButton>
+			<Button id="id-btn-CancelCategoryCreation" type="Default" text="{i18n>Cancel}" press="handler.onCancel"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>
