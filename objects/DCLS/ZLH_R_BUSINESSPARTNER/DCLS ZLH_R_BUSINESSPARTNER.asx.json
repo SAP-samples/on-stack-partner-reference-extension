@@ -1,0 +1,60 @@
+[
+ {
+  "table":"ACMDCLSRC",
+  "data":
+  [
+   {
+    "DCLNAME":"ZLH_R_BUSINESSPARTNER",
+    "AS4LOCAL":"A",
+    "AS4USER":"SAP_CUSTOMER",
+    "AS4DATE":"2026-01-09",
+    "AS4TIME":"12:43:10",
+    "SOURCE":"@EndUserText.label: 'Business Partner Details'\r\n@MappingRole: true\r\ndefine role ZLH_R_BUSINESSPARTNER {\r\n  grant\r\n    select\r\n      on\r\n        ZLH_R_BusinessPartner\r\n          where ( \r\n//            (AuthorizationGroup) = aspect pfcg_auth( ZLOYLTYHUB, ZLH_BEGRU, ACTVT = '03' );\r\n//            () = aspect pfcg_auth( ZLOYLTYHUB, ACTVT = '03' )\r\n            () = aspect pfcg_auth( ZLOYLTYHUB, ZLH_USER = 'USER', ACTVT = '03' )\r\n              and UserID =$session.user\r\n              ) or () = aspect pfcg_auth( ZLOYLTYHUB, ZLH_USER = 'ADMIN', ACTVT = '03' );\r\n}\r\n\r\n//@EndUserText.label: 'Business Partner Details'\r\n//@MappingRole: true\r\n//define role ZLH_R_BUSINESSPARTNER {\r\n//  grant\r\n//    select\r\n//      on\r\n//        ZLH_R_BUSINESSPARTNER; \r\n//        \r\n//}",
+    "PARENTNAME":"",
+    "ABAP_LANGUAGE_VERSION":"5"
+   }
+  ]
+ },
+ {
+  "table":"ACMDCLSRCT",
+  "data":
+  [
+   {
+    "DCLNAME":"ZLH_R_BUSINESSPARTNER",
+    "DCLLANGUAGE":"E",
+    "AS4LOCAL":"A",
+    "DDTEXT":"Business Partner Details"
+   }
+  ]
+ },
+ {
+  "table":"TADIR",
+  "data":
+  [
+   {
+    "PGMID":"R3TR",
+    "OBJECT":"DCLS",
+    "OBJ_NAME":"ZLH_R_BUSINESSPARTNER",
+    "KORRNUM":"",
+    "SRCSYSTEM":"...",
+    "AUTHOR":"SAP_CUSTOMER",
+    "SRCDEP":"",
+    "DEVCLASS":"ZPRA_LOYALTYHUB",
+    "GENFLAG":"",
+    "EDTFLAG":"",
+    "CPROJECT":" L",
+    "MASTERLANG":"E",
+    "VERSID":"",
+    "PAKNOCHECK":"",
+    "OBJSTABLTY":"",
+    "COMPONENT":"",
+    "CRELEASE":"",
+    "DELFLAG":"",
+    "TRANSLTTXT":"",
+    "CREATED_ON":"2025-12-10",
+    "CHECK_DATE":"2025-12-10",
+    "CHECK_CFG":""
+   }
+  ]
+ }
+]

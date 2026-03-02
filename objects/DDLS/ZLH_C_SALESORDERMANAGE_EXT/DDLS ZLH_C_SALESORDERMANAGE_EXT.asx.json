@@ -1,0 +1,64 @@
+[
+ {
+  "table":"DDDDLSRC",
+  "data":
+  [
+   {
+    "DDLNAME":"ZLH_C_SALESORDERMANAGE_EXT",
+    "AS4LOCAL":"N",
+    "AS4USER":"SAP_CUSTOMER",
+    "AS4DATE":"0000-00-00",
+    "AS4TIME":"00:00:00",
+    "SOURCE":"@EndUserText.label: 'Sales Order Projection View Extension'\r\nextend view C_SalesOrderManage with ZLH_C_SALESORDERMANAGE_EXT  \r\n    association [0..1] to I_Currency as _zz_giftcardcurrency_sdh on $projection.zz_giftcardcurrency_sdh = _zz_giftcardcurrency_sdh.Currency \r\n {\r\n    @Semantics.amount.currencyCode: 'zz_giftcardcurrency_sdh'\r\n    @UI: {\r\n    fieldGroup:[{qualifier: 'OrderData', importance: #HIGH, type: #FOR_ACTION, dataAction: 'zz_use_gift_card', label: 'Use Gift Card' }]}\r\n@UI.lineItem: [{ position: 65, importance:#HIGH }]\r\n    SalesOrder.zz_giftcardamount_sdh as zz_giftcardamount_sdh,\r\n    @ObjectModel.foreignKey.association: '_zz_giftcardcurrency_sdh'\r\n    SalesOrder.zz_giftcardcurrency_sdh as zz_giftcardcurrency_sdh,\r\n    \r\n    _zz_giftcardcurrency_sdh\r\n}\r\n/*+[internal] {\n\"BASEINFO\":\n{\n\"FROM\":\n[\n\"R_SALESORDERTP\"\n],\n\"ASSOCIATED\":\n[\n\"I_CURRENCY\"\n],\n\"BASE\":\n[],\n\"ANNO_REF\":\n[],\n\"SCALAR_FUNCTION\":\n[],\n\"VERSION\":0,\n\"ANNOREF_EVALUATION_ERROR\":\"\"\n}\n}*/",
+    "PARENTNAME":"C_SALESORDERMANAGE",
+    "ACTFLAG":"",
+    "CHGFLAG":"",
+    "SOURCE_TYPE":"X",
+    "SOURCE_ORIGIN":"0",
+    "ABAP_LANGUAGE_VERSION":"5"
+   }
+  ]
+ },
+ {
+  "table":"DDDDLSRCT",
+  "data":
+  [
+   {
+    "DDLNAME":"ZLH_C_SALESORDERMANAGE_EXT",
+    "DDLANGUAGE":"E",
+    "AS4LOCAL":"N",
+    "DDTEXT":"Sales Order Projection View Extension"
+   }
+  ]
+ },
+ {
+  "table":"TADIR",
+  "data":
+  [
+   {
+    "PGMID":"R3TR",
+    "OBJECT":"DDLS",
+    "OBJ_NAME":"ZLH_C_SALESORDERMANAGE_EXT",
+    "KORRNUM":"",
+    "SRCSYSTEM":"...",
+    "AUTHOR":"SAP_CUSTOMER",
+    "SRCDEP":"",
+    "DEVCLASS":"ZPRA_LOYALTYHUB",
+    "GENFLAG":"",
+    "EDTFLAG":"",
+    "CPROJECT":" L",
+    "MASTERLANG":"E",
+    "VERSID":"",
+    "PAKNOCHECK":"",
+    "OBJSTABLTY":"",
+    "COMPONENT":"",
+    "CRELEASE":"",
+    "DELFLAG":"",
+    "TRANSLTTXT":"",
+    "CREATED_ON":"2025-10-30",
+    "CHECK_DATE":"2025-10-30",
+    "CHECK_CFG":""
+   }
+  ]
+ }
+]

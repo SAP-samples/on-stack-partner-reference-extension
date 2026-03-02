@@ -1,0 +1,32 @@
+[
+ {
+  "table":"SRVD_RT_CONTRACT",
+  "nametab":
+  [
+   {
+    "NAME":"SRVDNAME",
+    "KEY":"X",
+    "TYPE":"C",
+    "LENGTH":40,
+    "DECIMALS":-1
+   },
+   {
+    "NAME":"CONTRACT",
+    "KEY":"X",
+    "TYPE":"C",
+    "LENGTH":1,
+    "DECIMALS":-1
+   }
+  ],
+  "properties":
+  [
+   {
+    "CLIENTDEPENDENCY":"NO",
+    "DELIVERYCLASS":"W",
+    "TABART":"APPL0",
+    "TABFORM":"T",
+    "REFNAME":"-"
+   }
+  ]
+ }
+]

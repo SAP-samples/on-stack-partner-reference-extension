@@ -1,0 +1,32 @@
+[
+ {
+  "table":"BALSUB",
+  "nametab":
+  [
+   {
+    "NAME":"OBJECT",
+    "KEY":"X",
+    "TYPE":"C",
+    "LENGTH":20,
+    "DECIMALS":-1
+   },
+   {
+    "NAME":"SUBOBJECT",
+    "KEY":"X",
+    "TYPE":"C",
+    "LENGTH":20,
+    "DECIMALS":-1
+   }
+  ],
+  "properties":
+  [
+   {
+    "CLIENTDEPENDENCY":"NO",
+    "DELIVERYCLASS":"E",
+    "TABART":"APPL2",
+    "TABFORM":"T",
+    "REFNAME":"-"
+   }
+  ]
+ }
+]

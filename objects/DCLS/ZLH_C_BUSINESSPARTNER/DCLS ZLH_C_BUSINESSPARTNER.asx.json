@@ -1,0 +1,60 @@
+[
+ {
+  "table":"ACMDCLSRC",
+  "data":
+  [
+   {
+    "DCLNAME":"ZLH_C_BUSINESSPARTNER",
+    "AS4LOCAL":"A",
+    "AS4USER":"SAP_CUSTOMER",
+    "AS4DATE":"2026-01-14",
+    "AS4TIME":"05:18:06",
+    "SOURCE":"//@EndUserText.label: 'Business Partner Details'\r\n//@MappingRole: true\r\n//define role ZLH_C_BUSINESSPARTNER {\r\n//  grant\r\n//    select\r\n//      on\r\n//        ZLH_C_BUSINESSPARTNER; \r\n//        \r\n//}\r\n\r\n@EndUserText.label: 'Business Partner Details'\r\n@MappingRole: true\r\ndefine role ZLH_C_BUSINESSPARTNER {\r\n  grant\r\n    select\r\n      on\r\n        ZLH_C_BUSINESSPARTNER\r\n         where\r\n            inheriting conditions from entity ZLH_R_BusinessPartner;\r\n                    \r\n}\r\n\r\n",
+    "PARENTNAME":"",
+    "ABAP_LANGUAGE_VERSION":"5"
+   }
+  ]
+ },
+ {
+  "table":"ACMDCLSRCT",
+  "data":
+  [
+   {
+    "DCLNAME":"ZLH_C_BUSINESSPARTNER",
+    "DCLLANGUAGE":"E",
+    "AS4LOCAL":"A",
+    "DDTEXT":"Business Partner Details"
+   }
+  ]
+ },
+ {
+  "table":"TADIR",
+  "data":
+  [
+   {
+    "PGMID":"R3TR",
+    "OBJECT":"DCLS",
+    "OBJ_NAME":"ZLH_C_BUSINESSPARTNER",
+    "KORRNUM":"",
+    "SRCSYSTEM":"...",
+    "AUTHOR":"SAP_CUSTOMER",
+    "SRCDEP":"",
+    "DEVCLASS":"ZPRA_LOYALTYHUB",
+    "GENFLAG":"",
+    "EDTFLAG":"",
+    "CPROJECT":" L",
+    "MASTERLANG":"E",
+    "VERSID":"",
+    "PAKNOCHECK":"",
+    "OBJSTABLTY":"",
+    "COMPONENT":"",
+    "CRELEASE":"",
+    "DELFLAG":"",
+    "TRANSLTTXT":"",
+    "CREATED_ON":"2025-12-16",
+    "CHECK_DATE":"2025-12-16",
+    "CHECK_CFG":""
+   }
+  ]
+ }
+]

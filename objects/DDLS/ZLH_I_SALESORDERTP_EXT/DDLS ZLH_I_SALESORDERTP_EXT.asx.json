@@ -1,0 +1,64 @@
+[
+ {
+  "table":"DDDDLSRC",
+  "data":
+  [
+   {
+    "DDLNAME":"ZLH_I_SALESORDERTP_EXT",
+    "AS4LOCAL":"N",
+    "AS4USER":"SAP_CUSTOMER",
+    "AS4DATE":"0000-00-00",
+    "AS4TIME":"00:00:00",
+    "SOURCE":"extend view entity I_SalesOrderTP with { \r\n  @Semantics.amount.currencyCode: 'zz_giftcardcurrency_sdh' \r\n    SalesOrder.zz_giftcardamount_sdh as zz_giftcardamount_sdh, \r\n    SalesOrder.zz_giftcardcurrency_sdh as zz_giftcardcurrency_sdh \r\n}\r\n/*+[internal] {\n\"BASEINFO\":\n{\n\"FROM\":\n[\n\"R_SALESORDERTP\"\n],\n\"ASSOCIATED\":\n[],\n\"BASE\":\n[],\n\"ANNO_REF\":\n[],\n\"SCALAR_FUNCTION\":\n[],\n\"VERSION\":0,\n\"ANNOREF_EVALUATION_ERROR\":\"\"\n}\n}*/",
+    "PARENTNAME":"I_SALESORDERTP",
+    "ACTFLAG":"",
+    "CHGFLAG":"",
+    "SOURCE_TYPE":"X",
+    "SOURCE_ORIGIN":"0",
+    "ABAP_LANGUAGE_VERSION":"5"
+   }
+  ]
+ },
+ {
+  "table":"DDDDLSRCT",
+  "data":
+  [
+   {
+    "DDLNAME":"ZLH_I_SALESORDERTP_EXT",
+    "DDLANGUAGE":"E",
+    "AS4LOCAL":"N",
+    "DDTEXT":"I_SalesOrderTP Extension"
+   }
+  ]
+ },
+ {
+  "table":"TADIR",
+  "data":
+  [
+   {
+    "PGMID":"R3TR",
+    "OBJECT":"DDLS",
+    "OBJ_NAME":"ZLH_I_SALESORDERTP_EXT",
+    "KORRNUM":"",
+    "SRCSYSTEM":"...",
+    "AUTHOR":"SAP_CUSTOMER",
+    "SRCDEP":"",
+    "DEVCLASS":"ZPRA_LOYALTYHUB",
+    "GENFLAG":"",
+    "EDTFLAG":"",
+    "CPROJECT":" L",
+    "MASTERLANG":"E",
+    "VERSID":"",
+    "PAKNOCHECK":"",
+    "OBJSTABLTY":"",
+    "COMPONENT":"",
+    "CRELEASE":"",
+    "DELFLAG":"",
+    "TRANSLTTXT":"",
+    "CREATED_ON":"2025-10-29",
+    "CHECK_DATE":"2025-10-29",
+    "CHECK_CFG":""
+   }
+  ]
+ }
+]

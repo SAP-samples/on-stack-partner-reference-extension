@@ -1,0 +1,32 @@
+[
+ {
+  "table":"TACTZ",
+  "nametab":
+  [
+   {
+    "NAME":"BROBJ",
+    "KEY":"X",
+    "TYPE":"C",
+    "LENGTH":10,
+    "DECIMALS":-1
+   },
+   {
+    "NAME":"ACTVT",
+    "KEY":"X",
+    "TYPE":"C",
+    "LENGTH":2,
+    "DECIMALS":-1
+   }
+  ],
+  "properties":
+  [
+   {
+    "CLIENTDEPENDENCY":"NO",
+    "DELIVERYCLASS":"W",
+    "TABART":"SSEXC",
+    "TABFORM":"T",
+    "REFNAME":"-"
+   }
+  ]
+ }
+]

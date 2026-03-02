@@ -1,0 +1,32 @@
+[
+ {
+  "table":"BALOBJ",
+  "nametab":
+  [
+   {
+    "NAME":"OBJECT",
+    "KEY":"X",
+    "TYPE":"C",
+    "LENGTH":20,
+    "DECIMALS":-1
+   },
+   {
+    "NAME":"ABAP_LANGUAGE_VERSION",
+    "KEY":"",
+    "TYPE":"C",
+    "LENGTH":1,
+    "DECIMALS":-1
+   }
+  ],
+  "properties":
+  [
+   {
+    "CLIENTDEPENDENCY":"NO",
+    "DELIVERYCLASS":"E",
+    "TABART":"APPL2",
+    "TABFORM":"T",
+    "REFNAME":"-"
+   }
+  ]
+ }
+]

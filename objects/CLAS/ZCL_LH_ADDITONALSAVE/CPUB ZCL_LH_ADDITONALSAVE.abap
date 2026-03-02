@@ -1,0 +1,1 @@
+CLASS zcl_lh_additonalsave DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zlh_r_businesspartner.

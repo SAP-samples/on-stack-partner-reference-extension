@@ -1,0 +1,1 @@
+CLASS zcl_lh_giftcard_ext DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF r_salesordertp.
