@@ -205,6 +205,7 @@ The handler creates a pricing element with condition type **`DRV1`** and a negat
 - **Type mismatch dumps:** Align `giftcardamount` types across API, parameter, persistency, and pricing condition (for example, use `CURR(15,2)` end to end).
 - **No F4 for currency:** The field is `readonly`. Move the input to the action parameter and annotate with `@Consumption.valueHelpDefinition` or make the field editable in the UI layer.
 - **Authorization errors on action:** Verify roles and authorizations contexts and back-end checks in `zcl_lh_giftcard_api`.
+- For this implementation, the **Use Gift Card** functionality is available to partners using SAP S/4HANA Cloud Public Edition 2602 Hotfix Collection 3 or later.
 
 ---
 
