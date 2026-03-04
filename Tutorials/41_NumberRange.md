@@ -2,7 +2,7 @@
 ## Overview 
 Many business applications require unique numbers, for example, to complete the keys of data records. To generate these numbers, a number range object must be defined with specific properties and assigned one or more number range intervals. Unique numbers are then generated from the configured intervals.
 
-### SAP Reference Help Documenatation:
+### SAP Reference Help Documentation:
 
 - [Maintaining Number Range Objects](https://help.sap.com/docs/SAP_S4HANA_CLOUD/6aa39f1ac05441e5a23f484f31e477e7/bb50d4cb39b74801acdd440c91131034.html?version=2602.500)
 - [Working with Number Range Objects](https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/working-with-number-range-objects?version=sap_btp)

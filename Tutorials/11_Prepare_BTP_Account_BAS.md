@@ -151,4 +151,4 @@ The Destination service lets you find the information that is required to access
 20. As **Technical Data**, set **Inbound Only**.
 21. Under **Identity Provider**, switch on **SAML Bearer Assertion Provider**.
 22. Choose **Upload Signing Certificate** and upload the previously downloaded **Destination Trust** file.
-23. Manully copy the **CN value** (value after CN=) from **Signing Certificate Subject** and add it to **SAML Bearer Issuer**.
+23. Manually copy the **CN value** (value after CN=) from **Signing Certificate Subject** and add it to **SAML Bearer Issuer**.

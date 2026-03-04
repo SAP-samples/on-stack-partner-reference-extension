@@ -63,7 +63,7 @@ Creating an action involves the following steps:
 
 ### Representative Action: createMembership
 
-This instance-bound action creates a Membership entry for a SoldtoParty using create-on-association.
+This instance-bound action creates a Membership entry for a Sold-toParty using create-on-association.
 #### Explanation
 
 The action uses EML to create a Membership row under the Business Partner. Default values such as `MemberSince`, `MembershipStatus`, and `MembershipEndDate` are set automatically. The updated BP instance is returned as the action result.
@@ -127,7 +127,7 @@ Creating a validation involves two main steps:
 1. **Define the validation in the behavior definition**: Specify when the validation should be triggered.
 2. **Implement the validation logic**: Write the code that is executed when the validation is triggered.
 
->Note: Front-end and back-end validations ensure data consistency. As the names suggest, front-end validations are performed on the UI. They improve the user experience by providing faster feedback and avoiding unnecessary roundtrips. In the RAP context, front-end validations are defined using CDS annotations or UI logic. Back-end validations are performed on the back end. They are defined in the business object behavior definition and implemented in the respective behavior pools. Front-end validations can be easily bypassed, for example, by using EML APIs in the RAP context. Therefore, back-end validations are essential for ensuring data consistency. This document focuses on back-end validations.
+>Note: Front-end and back-end validations ensure data consistency. As the names suggest, front-end validations are performed on the UI. They improve the user experience by providing faster feedback and avoiding unnecessary roundtrip. In the RAP context, front-end validations are defined using CDS annotations or UI logic. Back-end validations are performed on the back end. They are defined in the business object behavior definition and implemented in the respective behavior pools. Front-end validations can be easily bypassed, for example, by using EML APIs in the RAP context. Therefore, back-end validations are essential for ensuring data consistency. This document focuses on back-end validations.
 
 ### Representative Validation: validate_transaction_data
 

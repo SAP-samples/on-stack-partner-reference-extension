@@ -16,7 +16,7 @@ Using the application logs reuse library, you can:
 - Display detailed message information  
 - Access archived application logs  
 
-### SAP Help Portal Documenatation
+### SAP Help Portal Documentation
 
 - [Application Logs](https://help.sap.com/docs/SAP_S4HANA_CLOUD/6aa39f1ac05441e5a23f484f31e477e7/091bec93bffb49b5af594115cb80ffb8.html?version=2602.500)
 - [Working with Application Log Objects](https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/working-with-application-log-objects?version=s4hana_cloud)

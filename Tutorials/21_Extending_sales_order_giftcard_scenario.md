@@ -126,7 +126,7 @@ Class [`zcl_lh_giftcard_ext`](../objects/BDEF/ZLH_GIFTCARD_EXT/REPS%20ZLH_GIFTCA
 ---
 
 ## 5) UI — Projection View Extension
-Add a **Use Gift Card** button on the pbject page and expose the value help association.
+Add a **Use Gift Card** button on the object page and expose the value help association.
 
 
 [ZLH_C_SalesOrderManage_EXT](../objects/DDLS/ZLH_C_SALESORDERMANAGE_EXT/DDLS%20ZLH_C_SALESORDERMANAGE_EXT.asx.json)

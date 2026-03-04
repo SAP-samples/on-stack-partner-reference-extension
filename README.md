@@ -93,7 +93,7 @@ If you prefer a quick start with a deployment of the **Loyalty Hub** application
 1. Develop the core application focusing on business models, business logic, and UI:
    
     1. [Prepare Your SAP BTP Account and SAP BAS for UI Extension](./Tutorials/11_Prepare_BTP_Account_BAS.md)
-    2. [Business Configuation Maintenence Object for Maintaining Categories](./Tutorials/12_Business_configuration_maintenance_object.md)
+    2. [Business Configuration Maintenance Object for Maintaining Categories](./Tutorials/12_Business_configuration_maintenance_object.md)
     3. [Developing RAP Applications - Data Modeling and OData Service Generation](./Tutorials/13_Develop_ABAP_RAP_Application.md)
     4. [Developing Business Logic](./Tutorials/14_Develop_Business_Logic.md)
     5. [Add Authentication and Role-Based Authorization](./Tutorials/16_AuthorizationObject_IAM_Roles.md)
@@ -103,10 +103,10 @@ If you prefer a quick start with a deployment of the **Loyalty Hub** application
  2. Integration and gift card extension
     1. [Sales Order Integration with Loyalty Hub](./Tutorials/20_Event_Based_Integration.md)
     2. [Sales Order Gift Card Extension](./Tutorials/21_extending_sales_order_giftcard_scenario.md)
- 3. Custome UI extention navigation
+ 3. Custom UI extension navigation
     1. [Extending the User Interface of the Application Using Freestyle SAPUI5 or SAP Fiori Elements](./Tutorials/30_Extend_User_Interface.md)
     2. [Navigation Links and Semantic Actions](./Tutorials/31_navigation.md)
- 4. [Resuse Services and Other Features](./Tutorials/40_Reuse_Services.md)
+ 4. [Reuse Services and Other Features](./Tutorials/40_Reuse_Services.md)
     1. [Number Range](./Tutorials/41_NumberRange.md)
     2. [Application Job for Category Upgrade](./Tutorials/42_Application_Job_Category_Update.md)
     3. [Email Notification on Category Upgrade](./Tutorials/43_Email_Notification_Category_Update.md)

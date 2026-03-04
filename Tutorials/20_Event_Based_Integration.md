@@ -65,7 +65,7 @@ This local class (inside the class include) contains the **actual event handler 
 
 ## 3. Event Handling Logic (Creation and Update)
 
-The event handling logic defines **how Loyalty Transactions are created** when a sales prder event is received.
+The event handling logic defines **how Loyalty Transactions are created** when a sales order event is received.
 
 Below is a conceptual explanation of what the implementation performs.
 

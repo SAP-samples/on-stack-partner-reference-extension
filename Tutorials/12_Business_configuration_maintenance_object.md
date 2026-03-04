@@ -1,4 +1,4 @@
-# Create a Business Configuation Maintenance Object for Maintaining Categories
+# Create a Business Configuration Maintenance Object for Maintaining Categories
 
 When a membership is created for a Sold-to Party, a corresponding membership category must also be assigned. These membership categories need to be defined during the initial setup of the application.
 

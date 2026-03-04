@@ -186,7 +186,7 @@ You need to create an interface that contains reusable constants, enabling consi
 
 2. Maintain the required information and choose **Next**.
    - **Name**: ZIF_LH_CONSTANTS
-   - **Description**: Interface for loyalty hub contants
+   - **Description**: Interface for loyalty hub constants
 
 3. Select a transport request and choose **Finish** to create the interface.
 

@@ -89,7 +89,7 @@ define root view entity ZLH_C_BusinessPartner
   - `TotalLoyaltyPointsRedeemed`
   - `LltyPtsAvailableCriticality`
   - `LoyaltyMembershipCriticality`
-- Association redirections:
+- Association redirection:
   - `_GiftCard` → `ZLH_C_GIFTCARD`
   - `_MemberShip` → `ZLH_C_Membership`
   - `_Transactions` → `ZLH_C_TRANSACTIONS`
