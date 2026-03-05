@@ -1,5 +1,5 @@
 # On-Stack Partner Reference Application 'Loyalty Hub'
-
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/on-stack-partner-reference-extension)](https://api.reuse.software/info/github.com/SAP-samples/on-stack-partner-reference-extension)
 ## Description
 
 The **Partner Reference Application** is a reference implementation that provides clear guidance on the golden path for partners. It is built as an **on-stack extension on SAP S/4HANA Cloud Public Edition**, demonstrating how to extend core business processes while adhering to SAP’s clean-core principles.
