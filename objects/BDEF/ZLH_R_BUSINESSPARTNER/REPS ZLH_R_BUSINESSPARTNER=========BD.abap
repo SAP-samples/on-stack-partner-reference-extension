@@ -23,11 +23,13 @@ authorization master ( instance )
   association _Transactions { create(precheck); with draft; }
   action ( features : instance ) createMembership result [1] $self;
   action ( features : instance ) deleteMembership result [1] $self;
+  action  ( features : instance ) reactivateMembership result [1] $self;
   action ( features : instance ) createCategory parameter ZLH_D_LHCREATECATEGORYP;
 
   side effects { action createMembership affects entity _Category;
                  action createCategory affects entity _Category;
                  action deleteMembership affects entity _GiftCard, entity _Category;
+                 action reactivateMembership affects entity _Category, entity _MemberShip;
                  }
     draft action ( authorization : update, features : instance ) Edit;
 
@@ -37,7 +39,7 @@ authorization master ( instance )
     validation ZLH_R_GIFTCARD~validateGiftCardFields;
     validation ZLH_R_GIFTCARD~validateGiftcardBalance;
   }
-  draft action Activate;
+  draft action Activate optimized;
   draft action Resume;
   draft action Discard;
 }
@@ -53,8 +55,9 @@ authorization dependent by _BP
   update (precheck);
   delete;
   field ( mandatory : create ) GiftcardValue, SapDescription;
+  //field (readonly : update) SapDescription;
   field ( readonly ) Giftcardnumber, BusinessPartner, CreatedBy, LastChangedat, LastChangedby;
-  field ( features : instance ) GiftcardValue, SapDescription, GiftcardCurrency;
+  field ( features : instance ) GiftcardValue, GiftcardCurrency;
   determination setGiftcardBalanceOnCreate on modify { field GiftCardValue; create; }
   determination setGiftcardFieldsOnCreate on modify { create; }
   determination addTransactionOnCreate on save { create; }

@@ -1,4 +1,4 @@
-  METHOD read_gift_card_balance.
+  METHOD zif_lh_giftcard_api~read_gift_card_balance.
     CLEAR: total_balance, currency.
 
     READ ENTITIES OF zlh_r_businesspartner

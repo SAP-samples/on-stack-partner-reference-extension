@@ -2,7 +2,10 @@
 **"* local helper classes, interface definitions and type
 **"* declarations
 *
-CLASS lhc_category DEFINITION INHERITING FROM cl_abap_behavior_handler.
+CLASS ltcl_category_filldefaults DEFINITION DEFERRED FOR TESTING.
+
+CLASS lhc_category DEFINITION INHERITING FROM cl_abap_behavior_handler
+FRIENDS: ltcl_category_filldefaults .
 
   PRIVATE SECTION.
 

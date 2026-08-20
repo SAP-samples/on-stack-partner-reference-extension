@@ -1,5 +1,8 @@
+CLASS ltcl_transaction_handler DEFINITION DEFERRED FOR TESTING.
+
 CLASS lhc_zlh_r_transactions DEFINITION
-  INHERITING FROM cl_abap_behavior_handler.
+  INHERITING FROM cl_abap_behavior_handler
+  FRIENDS ltcl_transaction_handler .
 
   PRIVATE SECTION.
 
@@ -212,6 +215,7 @@ CLASS lhc_zlh_r_transactions IMPLEMENTATION.
         COND d(
           WHEN <transaction>-PointExpiryDate IS INITIAL
                AND activity_type <> zif_lh_constants=>activity-redemption
+               AND activity_type <> zif_lh_constants=>activity-deactivation
           THEN today + 365
           ELSE <transaction>-PointExpiryDate ).
 

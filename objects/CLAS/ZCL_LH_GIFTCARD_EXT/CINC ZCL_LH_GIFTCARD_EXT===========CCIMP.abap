@@ -1,12 +1,28 @@
 CLASS lhc_salesorder DEFINITION INHERITING FROM cl_abap_behavior_handler.
-
   PRIVATE SECTION.
     METHODS get_instance_features FOR INSTANCE FEATURES
       IMPORTING keys REQUEST requested_features FOR SalesOrder RESULT result.
     METHODS zz_use_gift_card FOR MODIFY
       IMPORTING it_keys FOR ACTION SalesOrder~zz_use_gift_card RESULT result.
+ENDCLASS.
 
+CLASS lcl_giftcard_logic DEFINITION FINAL CREATE PRIVATE.
 
+  PUBLIC SECTION.
+    TYPES:
+      BEGIN OF ty_eval,
+        soldtoparty     TYPE i_salesordertp-soldtoparty,
+        currency        TYPE i_salesordertp-transactioncurrency,
+        giftcard_amount TYPE i_salesordertp-totalnetamount,
+        error_no        TYPE symsgno,
+        should_modify   TYPE abap_bool,
+      END OF ty_eval.
+    CLASS-METHODS evaluate
+      IMPORTING
+        iv_salesorder_id   TYPE i_salesordertp-salesorder
+        iv_giftcard_amount TYPE i_salesordertp-totalnetamount
+      RETURNING
+        VALUE(rs_eval) TYPE ty_eval.
 ENDCLASS.
 
 CLASS lhc_salesorder IMPLEMENTATION.
@@ -30,89 +46,32 @@ CLASS lhc_salesorder IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD zz_use_gift_card.
-
     LOOP AT it_keys ASSIGNING FIELD-SYMBOL(<lfs_key>).
 
       DATA(salesorder_id) = <lfs_key>-SalesOrder.
       DATA(giftcard_amount) = <lfs_key>-%param-giftcardamount.
 
-      SELECT SINGLE SalesOrder, SoldToParty,TransactionCurrency, TotalNetAmount, HdrGeneralIncompletionStatus FROM I_SalesOrderTP WHERE SalesOrder = @salesorder_id INTO  @DATA(salesorder_detail).
+      DATA(ls_eval) = lcl_giftcard_logic=>evaluate(
+        iv_salesorder_id = salesorder_id
+        iv_giftcard_amount = giftcard_amount ).
 
-      " Only proceed for orders in the intended completion status.
-      CHECK salesorder_detail-HdrGeneralIncompletionStatus = zif_lh_constants=>sales_order_completion_status.
-
-
-      " Read available gift card balance for the Sold-to Party.
-      TRY.
-          zcl_lh_giftcard_api=>read_gift_card_balance( EXPORTING business_partner = salesorder_detail-SoldToParty
-                                                        IMPORTING currency = DATA(available_gc_currency)
-                                                                  total_balance = DATA(available_gc_balance) ).
-        CATCH zcx_lh_giftcard into dATA(exp).
-         data(msg) = exp->get_text( ).
-      ENDTRY.
-
-      " Validation 1: Requested amount must not exceed available balance.
-      IF giftcard_amount > available_gc_balance.
+      IF ls_eval-error_no IS NOT INITIAL.
         APPEND VALUE #( %tky  = <lfs_key>-%tky ) TO failed-salesorder.
         APPEND VALUE #(
           %tky                        = <lfs_key>-%tky
           %msg = new_message(
                    id = 'ZPRA_LOYALTYHUB'
-                   number = '001'
+                   number = ls_eval-error_no
                    severity = if_abap_behv_message=>severity-error )
            ) TO reported-salesorder.
 
-      " Validation 2: Requested amount must not exceed SO net amount.
-      elseif giftcard_amount > salesorder_detail-TotalNetAmount.
-        APPEND VALUE #( %tky  = <lfs_key>-%tky ) TO failed-salesorder.
-        APPEND VALUE #(
-          %tky                        = <lfs_key>-%tky
-          %msg = new_message(
-                   id = 'ZPRA_LOYALTYHUB'
-                   number = '018'
-                   severity = if_abap_behv_message=>severity-error )
-           ) TO reported-salesorder.
-
-      " Validation 3: Business rule — SO net amount must be >= 50.
-      elseif salesorder_detail-TotalNetAmount < 50.
-        APPEND VALUE #( %tky  = <lfs_key>-%tky ) TO failed-salesorder.
-        APPEND VALUE #(
-          %tky                        = <lfs_key>-%tky
-          %msg = new_message(
-                   id = 'ZPRA_LOYALTYHUB'
-                   number = '019'
-                   severity = if_abap_behv_message=>severity-error )
-           ) TO reported-salesorder.
-
-      " Validation 4: Amount must be > 0.
-      ELSEIF giftcard_amount EQ 0.
-        APPEND VALUE #( %tky  = <lfs_key>-%tky ) TO failed-salesorder.
-        APPEND VALUE #(
-          %tky                        = <lfs_key>-%tky
-          %msg = new_message(
-                   id = 'ZPRA_LOYALTYHUB'
-                   number = '000'
-                   severity = if_abap_behv_message=>severity-error )
-           ) TO reported-salesorder.
-      ELSE.
-        TRY.
-            zcl_lh_giftcard_api=>redeem_gift_card_amount( EXPORTING business_partner = salesorder_detail-SoldToParty
-                                                                   amount = giftcard_amount
-                                                                   currency = salesorder_detail-TransactionCurrency ).
-*                                                          IMPORTING ev_status = DATA(redeem_status) ).
-          CATCH zcx_lh_giftcard iNTO exp.
-            msg = exp->get_text( ).
-            data(redeem_status) = 'F'.
-        ENDTRY.
-
-        " On successful redemption, update persistent fields and create pricing element
-        IF redeem_status NE 'F'.
+      ELSEIF ls_eval-should_modify = abap_true.
           MODIFY ENTITIES OF i_salesordertp IN LOCAL MODE
             ENTITY salesorder
             UPDATE SET FIELDS WITH VALUE #(
             ( %tky                    = <lfs_key>-%tky
-              %data-zz_giftcardamount_sdh  = giftcard_amount
-              %data-zz_giftcardcurrency_sdh = salesorder_detail-TransactionCurrency )
+              %data-zz_giftcardamount_sdh  = ls_eval-giftcard_amount
+              %data-zz_giftcardcurrency_sdh = ls_eval-currency )
              )
            CREATE BY \_pricingelement SET FIELDS WITH VALUE #(
             ( %tky    = <lfs_key>-%tky
@@ -120,23 +79,13 @@ CLASS lhc_salesorder IMPLEMENTATION.
                 %cid                = 'CIDGIFTCARD'
                 conditiontype       = 'DRV1'
                 "conditiontype       = 'XXXX'
-                conditionrateamount = giftcard_amount * ( -1 )
-                conditioncurrency   = salesorder_detail-TransactionCurrency ) ) ) )
+                conditionrateamount = ls_eval-giftcard_amount * ( -1 )
+                conditioncurrency   = ls_eval-currency ) ) ) )
             FAILED   DATA(modify_failed)
             REPORTED DATA(modify_reported).
 
           failed   = CORRESPONDING #( APPENDING BASE ( failed   ) modify_failed   ).
           reported = CORRESPONDING #( APPENDING BASE ( reported ) modify_reported ).
-        ELSE. "error in redeeming gift card
-          APPEND VALUE #( %tky  = <lfs_key>-%tky ) TO failed-salesorder.
-          APPEND VALUE #(
-            %tky                        = <lfs_key>-%tky
-            %msg = new_message(
-                     id = 'ZPRA_LOYALTYHUB'
-                     number = '003'
-                     severity = if_abap_behv_message=>severity-error )
-             ) TO reported-salesorder.
-        ENDIF.
       ENDIF.
     ENDLOOP.
 
@@ -153,6 +102,72 @@ CLASS lhc_salesorder IMPLEMENTATION.
 
   ENDMETHOD.
 
+
+ENDCLASS.
+
+CLASS lcl_giftcard_logic IMPLEMENTATION.
+
+  METHOD evaluate.
+    DATA available_gc_balance TYPE i_salesordertp-totalnetamount.
+    DATA available_gc_currency TYPE i_salesordertp-transactioncurrency.
+    DATA redeem_status TYPE c LENGTH 1.
+    DATA(lo_giftcard_api) = zcl_lh_giftcard_api=>get_instance( ).
+
+    SELECT SINGLE SalesOrder,
+                  SoldToParty,
+                  TransactionCurrency,
+                  TotalNetAmount,
+                  HdrGeneralIncompletionStatus
+      FROM I_SalesOrderTP
+      WHERE SalesOrder = @iv_salesorder_id
+      INTO @DATA(salesorder_detail).
+
+    CHECK salesorder_detail-HdrGeneralIncompletionStatus = zif_lh_constants=>sales_order_completion_status.
+
+    rs_eval-soldtoparty = salesorder_detail-SoldToParty.
+    rs_eval-currency = salesorder_detail-TransactionCurrency.
+    rs_eval-giftcard_amount = iv_giftcard_amount.
+
+    TRY.
+        lo_giftcard_api->read_gift_card_balance(
+          EXPORTING business_partner = salesorder_detail-SoldToParty
+          IMPORTING currency = available_gc_currency
+                    total_balance = available_gc_balance ).
+      CATCH zcx_lh_giftcard INTO DATA(exp_balance).
+        DATA(msg_balance) = exp_balance->get_text( ).
+    ENDTRY.
+
+    IF iv_giftcard_amount > available_gc_balance.
+      rs_eval-error_no = '001'.
+      RETURN.
+    ELSEIF iv_giftcard_amount > salesorder_detail-TotalNetAmount.
+      rs_eval-error_no = '018'.
+      RETURN.
+    ELSEIF salesorder_detail-TotalNetAmount < 50.
+      rs_eval-error_no = '019'.
+      RETURN.
+    ELSEIF iv_giftcard_amount EQ 0.
+      rs_eval-error_no = '000'.
+      RETURN.
+    ENDIF.
+
+    TRY.
+        lo_giftcard_api->redeem_gift_card_amount(
+          EXPORTING business_partner = salesorder_detail-SoldToParty
+                    amount = iv_giftcard_amount
+                    currency = salesorder_detail-TransactionCurrency ).
+      CATCH zcx_lh_giftcard INTO DATA(exp_redeem).
+        DATA(msg_redeem) = exp_redeem->get_text( ).
+        redeem_status = 'F'.
+    ENDTRY.
+
+    IF redeem_status = 'F'.
+      rs_eval-error_no = '003'.
+      RETURN.
+    ENDIF.
+
+    rs_eval-should_modify = abap_true.
+  ENDMETHOD.
 
 ENDCLASS.
 

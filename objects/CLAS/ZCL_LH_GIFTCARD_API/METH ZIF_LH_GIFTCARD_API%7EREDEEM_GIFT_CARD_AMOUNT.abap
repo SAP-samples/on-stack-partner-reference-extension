@@ -1,8 +1,8 @@
-  METHOD redeem_gift_card_amount.
+  METHOD zif_lh_giftcard_api~redeem_gift_card_amount.
 
     DATA: deduction TYPE zlh_giftcardamt.
     " Check current balance
-    read_gift_card_balance(
+    zif_lh_giftcard_api~read_gift_card_balance(
       EXPORTING business_partner = business_partner
       IMPORTING total_balance    = DATA(current_total) ).
 

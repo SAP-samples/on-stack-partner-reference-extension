@@ -9,10 +9,10 @@
     "AS4USER":"SAP_CUSTOMER",
     "AS4DATE":"0000-00-00",
     "AS4TIME":"00:00:00",
-    "SOURCE":"@AccessControl.authorizationCheck: #MANDATORY\r\n@EndUserText.label: 'Business Partner Details'\r\n@Metadata.ignorePropagatedAnnotations: true\r\n@Metadata.allowExtensions: true\r\n\r\n@Search.searchable: true\r\ndefine root view entity ZLH_C_BusinessPartner\r\n  provider contract transactional_query\r\n  as projection on ZLH_R_BusinessPartner\r\n{\r\n  key     SoldToParty,\r\n          CustomerName,\r\n          LastChangeTime,\r\n          AuthorizationGroup,\r\n          ETag,\r\n          UserID,\r\n          @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_LH_BP_CALC_EXIT'\r\n  virtual MembershipCategory          : zlh_category_name,\r\n          //          @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_LH_BP_CALC_EXIT'\r\n          //  virtual MembershipStatus            : zlh_category_status,\r\n\r\n          @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_LH_BP_CALC_EXIT'\r\n  virtual TotalLoyaltyPointsAvailable : zlh_loyaltypoint,\r\n          @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_LH_BP_CALC_EXIT'\r\n  virtual TotalLoyaltyPointsRedeemed  : zlh_loyaltypoint,\r\n          @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_LH_BP_CALC_EXIT'\r\n  virtual LltyPtsAvailableCriticality : abap.int1,\r\n          @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_LH_BP_CALC_EXIT'\r\n  virtual LoyaltyMembershipCriticality: abap.int1,\r\n          \r\n//          @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_LH_BP_CALC_EXIT'\r\n//   virtual UserType: zlh_usertype,\r\n          //  _MemberShip._Category,\r\n          _MemberShip.MembershipID as MemberShipID,\r\n          _MemberShip.MemberSince,\r\n//          @ObjectModel.text.element:[ 'StatusText' ]\r\n//          @UI.textArrangement: #TEXT_FIRST\r\n//          _MemberShip.MembershipStatus,\r\n//          _MemberShip.StatusText,\r\n          //          _MemberShip._StatusVH,\r\n          _MemberShip.MembershipEndDate,\r\n          /* Associations */\r\n          _GiftCard     : redirected to composition child ZLH_C_GIFTCARD,\r\n          _MemberShip   : redirected to composition child ZLH_C_Membership,\r\n          _Transactions : redirected to composition child ZLH_C_TRANSACTIONS,\r\n          _Category     : redirected to ZLH_C_CATEGORY\r\n}\r\n/*+[internal] {\n\"BASEINFO\":\n{\n\"FROM\":\n[\n\"ZLH_R_BUSINESSPARTNER\",\n\"ZLH_R_MEMBERSHIP\"\n],\n\"ASSOCIATED\":\n[\n\"ZLH_C_CATEGORY\",\n\"ZLH_C_GIFTCARD\",\n\"ZLH_C_MEMBERSHIP\",\n\"ZLH_C_TRANSACTIONS\",\n\"ZLH_R_CATEGORY\",\n\"ZLH_R_GIFTCARD\",\n\"ZLH_R_MEMBERSHIP\",\n\"ZLH_R_TRANSACTIONS\"\n],\n\"BASE\":\n[\n\"ZLH_R_BUSINESSPARTNER\"\n],\n\"ANNO_REF\":\n[],\n\"SCALAR_FUNCTION\":\n[],\n\"VERSION\":0,\n\"ANNOREF_EVALUATION_ERROR\":\"\"\n}\n}*/",
+    "SOURCE":"@AccessControl.authorizationCheck: #MANDATORY\r\n@EndUserText.label: 'Business Partner Details'\r\n@Metadata.ignorePropagatedAnnotations: true\r\n@Metadata.allowExtensions: true\r\n\r\n@Search.searchable: true\r\ndefine root view entity ZLH_C_BusinessPartner\r\n  provider contract transactional_query\r\n  as projection on ZLH_R_BusinessPartner\r\n{\r\n          @ObjectModel.text.element: [ 'CustomerName' ]\r\n  key     SoldToParty,\r\n          CustomerName,\r\n          LastChangeTime,\r\n          AuthorizationGroup,\r\n          ETag,\r\n          UserID,\r\n          @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_LH_BP_CALC_EXIT'\r\n  virtual MembershipCategory           : zlh_category_name,\r\n          //          @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_LH_BP_CALC_EXIT'\r\n          //  virtual MembershipStatus            : zlh_category_status,\r\n\r\n          @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_LH_BP_CALC_EXIT'\r\n  virtual TotalLoyaltyPointsAvailable  : zlh_loyaltypoint,\r\n          @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_LH_BP_CALC_EXIT'\r\n  virtual TotalLoyaltyPointsRedeemed   : zlh_loyaltypoint,\r\n          @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_LH_BP_CALC_EXIT'\r\n  virtual LltyPtsAvailableCriticality  : abap.int1,\r\n          @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_LH_BP_CALC_EXIT'\r\n  virtual LoyaltyMembershipCriticality : abap.int1,\r\n\r\n          //          @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_LH_BP_CALC_EXIT'\r\n          //   virtual UserType: zlh_usertype,\r\n          //  _MemberShip._Category,\r\n          _MemberShip.MembershipID as MemberShipID,\r\n          _MemberShip.MemberSince,\r\n          //          @ObjectModel.text.element:[ 'StatusText' ]\r\n          //          @UI.textArrangement: #TEXT_FIRST\r\n          //          _MemberShip.MembershipStatus,\r\n          //          _MemberShip.StatusText,\r\n          //          _MemberShip._StatusVH,\r\n          _MemberShip.MembershipEndDate,\r\n          /* Associations */\r\n          _GiftCard     : redirected to composition child ZLH_C_GIFTCARD,\r\n          _MemberShip   : redirected to composition child ZLH_C_Membership,\r\n          _Transactions : redirected to composition child ZLH_C_TRANSACTIONS,\r\n          _Category     : redirected to ZLH_C_CATEGORY\r\n}\r\n/*+[internal] {\n\"BASEINFO\":\n{\n\"FROM\":\n[\n\"ZLH_R_BUSINESSPARTNER\",\n\"ZLH_R_MEMBERSHIP\"\n],\n\"ASSOCIATED\":\n[\n\"ZLH_C_CATEGORY\",\n\"ZLH_C_GIFTCARD\",\n\"ZLH_C_MEMBERSHIP\",\n\"ZLH_C_TRANSACTIONS\",\n\"ZLH_R_CATEGORY\",\n\"ZLH_R_GIFTCARD\",\n\"ZLH_R_MEMBERSHIP\",\n\"ZLH_R_TRANSACTIONS\"\n],\n\"BASE\":\n[\n\"ZLH_R_BUSINESSPARTNER\"\n],\n\"ANNO_REF\":\n[],\n\"SCALAR_FUNCTION\":\n[],\n\"VERSION\":0,\n\"ANNOREF_EVALUATION_ERROR\":\"\"\n}\n}*/",
     "PARENTNAME":"",
     "ACTFLAG":"",
-    "CHGFLAG":"53",
+    "CHGFLAG":"45D",
     "SOURCE_TYPE":"P",
     "SOURCE_ORIGIN":"0",
     "ABAP_LANGUAGE_VERSION":"5"
@@ -52,28 +52,28 @@
     "STRUCOBJN":"ZLH_C_BUSINESSPARTNER",
     "LFIELDNAME":"LLTYPTSAVAILABLECRITICALITY",
     "NAME":"OBJECTMODEL",
-    "POSITION":9,
+    "POSITION":11,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZLH_C_BUSINESSPARTNER",
     "LFIELDNAME":"LLTYPTSAVAILABLECRITICALITY",
     "NAME":"OBJECTMODEL.VIRTUALELEMENTCALCULATEDBY",
-    "POSITION":10,
+    "POSITION":12,
     "VALUE":"'ABAP:ZCL_LH_BP_CALC_EXIT'"
    },
    {
     "STRUCOBJN":"ZLH_C_BUSINESSPARTNER",
     "LFIELDNAME":"LOYALTYMEMBERSHIPCRITICALITY",
     "NAME":"OBJECTMODEL",
-    "POSITION":11,
+    "POSITION":13,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZLH_C_BUSINESSPARTNER",
     "LFIELDNAME":"LOYALTYMEMBERSHIPCRITICALITY",
     "NAME":"OBJECTMODEL.VIRTUALELEMENTCALCULATEDBY",
-    "POSITION":12,
+    "POSITION":14,
     "VALUE":"'ABAP:ZCL_LH_BP_CALC_EXIT'"
    },
    {
@@ -94,42 +94,56 @@
     "STRUCOBJN":"ZLH_C_BUSINESSPARTNER",
     "LFIELDNAME":"MEMBERSHIPCATEGORY",
     "NAME":"OBJECTMODEL",
-    "POSITION":3,
+    "POSITION":5,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZLH_C_BUSINESSPARTNER",
     "LFIELDNAME":"MEMBERSHIPCATEGORY",
     "NAME":"OBJECTMODEL.VIRTUALELEMENTCALCULATEDBY",
-    "POSITION":4,
-    "VALUE":"'ABAP:ZCL_LH_BP_CALC_EXIT'"
-   },
-   {
-    "STRUCOBJN":"ZLH_C_BUSINESSPARTNER",
-    "LFIELDNAME":"TOTALLOYALTYPOINTSAVAILABLE",
-    "NAME":"OBJECTMODEL",
-    "POSITION":5,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZLH_C_BUSINESSPARTNER",
-    "LFIELDNAME":"TOTALLOYALTYPOINTSAVAILABLE",
-    "NAME":"OBJECTMODEL.VIRTUALELEMENTCALCULATEDBY",
     "POSITION":6,
     "VALUE":"'ABAP:ZCL_LH_BP_CALC_EXIT'"
    },
    {
     "STRUCOBJN":"ZLH_C_BUSINESSPARTNER",
-    "LFIELDNAME":"TOTALLOYALTYPOINTSREDEEMED",
+    "LFIELDNAME":"SOLDTOPARTY",
+    "NAME":"OBJECTMODEL",
+    "POSITION":3,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZLH_C_BUSINESSPARTNER",
+    "LFIELDNAME":"SOLDTOPARTY",
+    "NAME":"OBJECTMODEL.TEXT.ELEMENT$1$",
+    "POSITION":4,
+    "VALUE":"'CustomerName'"
+   },
+   {
+    "STRUCOBJN":"ZLH_C_BUSINESSPARTNER",
+    "LFIELDNAME":"TOTALLOYALTYPOINTSAVAILABLE",
     "NAME":"OBJECTMODEL",
     "POSITION":7,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZLH_C_BUSINESSPARTNER",
-    "LFIELDNAME":"TOTALLOYALTYPOINTSREDEEMED",
+    "LFIELDNAME":"TOTALLOYALTYPOINTSAVAILABLE",
     "NAME":"OBJECTMODEL.VIRTUALELEMENTCALCULATEDBY",
     "POSITION":8,
+    "VALUE":"'ABAP:ZCL_LH_BP_CALC_EXIT'"
+   },
+   {
+    "STRUCOBJN":"ZLH_C_BUSINESSPARTNER",
+    "LFIELDNAME":"TOTALLOYALTYPOINTSREDEEMED",
+    "NAME":"OBJECTMODEL",
+    "POSITION":9,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZLH_C_BUSINESSPARTNER",
+    "LFIELDNAME":"TOTALLOYALTYPOINTSREDEEMED",
+    "NAME":"OBJECTMODEL.VIRTUALELEMENTCALCULATEDBY",
+    "POSITION":10,
     "VALUE":"'ABAP:ZCL_LH_BP_CALC_EXIT'"
    }
   ]

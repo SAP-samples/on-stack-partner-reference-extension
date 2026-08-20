@@ -27,6 +27,10 @@
    {
     "OBJECT":"ZLH_APPLICATION_LOG",
     "SUBOBJECT":"ZLH_CATEGORY_UPDATE"
+   },
+   {
+    "OBJECT":"ZLH_APPLICATION_LOG",
+    "SUBOBJECT":"ZLH_SO_PROCESSING"
    }
   ]
  },
@@ -39,6 +43,12 @@
     "OBJECT":"ZLH_APPLICATION_LOG",
     "SUBOBJECT":"ZLH_CATEGORY_UPDATE",
     "SUBOBJTXT":"Subobject for category update logs"
+   },
+   {
+    "SPRAS":"E",
+    "OBJECT":"ZLH_APPLICATION_LOG",
+    "SUBOBJECT":"ZLH_SO_PROCESSING",
+    "SUBOBJTXT":"Sales Order Processing"
    }
   ]
  },

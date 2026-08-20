@@ -17,6 +17,7 @@ define behavior for ZLH_C_BusinessPartner //alias <alias_name>
    use action createMembership;
    use action deleteMembership;
   use action createCategory;
+  use action reactivateMembership;
   use association _GiftCard {create; with draft; }
   use function GetDefaultsForGiftCard;
   use association _MemberShip { create; with draft; }

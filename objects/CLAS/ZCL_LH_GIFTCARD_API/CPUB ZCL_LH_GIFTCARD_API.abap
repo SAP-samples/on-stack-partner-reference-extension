@@ -1,24 +1,10 @@
 CLASS zcl_lh_giftcard_api DEFINITION
   PUBLIC
-  FINAL
   CREATE PUBLIC .
   PUBLIC SECTION.
-    CLASS-METHODS:
-      read_gift_card_balance
-        IMPORTING
-          business_partner TYPE zlh_businesspartner
-        EXPORTING
-          total_balance    TYPE zlh_giftcardamt
-          currency         TYPE zlh_currency
-        RAISING
-          zcx_lh_giftcard,
+   INTERFACES zif_lh_giftcard_api.
+    CLASS-METHODS get_instance
+      RETURNING VALUE(ro_instance) TYPE REF TO zif_lh_giftcard_api.
 
-      redeem_gift_card_amount
-        IMPORTING
-          business_partner TYPE zlh_businesspartner
-          amount           TYPE zlh_giftcardamt
-          currency         TYPE zlh_currency
-        EXPORTING
-          new_balance      TYPE zlh_giftcardamt
-        RAISING
-          zcx_lh_giftcard.
+    CLASS-METHODS set_instance
+      IMPORTING io_instance TYPE REF TO zif_lh_giftcard_api.

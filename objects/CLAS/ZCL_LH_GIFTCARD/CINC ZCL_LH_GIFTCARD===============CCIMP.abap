@@ -1,4 +1,7 @@
-CLASS lhc_zlh_r_giftcard DEFINITION INHERITING FROM cl_abap_behavior_handler.
+CLASS ltcl_giftcard_handler DEFINITION DEFERRED FOR TESTING.
+
+CLASS lhc_zlh_r_giftcard DEFINITION INHERITING FROM cl_abap_behavior_handler
+FRIENDS:ltcl_giftcard_handler.
 
   PRIVATE SECTION.
 
@@ -81,7 +84,7 @@ CLASS lhc_zlh_r_giftcard IMPLEMENTATION.
                           %element-GiftcardValue = if_abap_behv=>mk-on ) TO reported-zlh_r_giftcard.
         ENDIF.
 
-        IF key->GiftcardValue > zif_lh_constants=>max_giftcard_value.
+        IF key->GiftcardValue >= zif_lh_constants=>max_giftcard_value.
           APPEND VALUE #( %tky = key->%tky ) TO failed-zlh_r_giftcard.
           APPEND VALUE #(
             %tky = key->%tky
@@ -235,11 +238,11 @@ CLASS lhc_zlh_r_giftcard IMPLEMENTATION.
      THEN if_abap_behv=>fc-f-read_only
      ELSE if_abap_behv=>fc-f-mandatory )
 
- %features-%field-SapDescription = COND #(
-     WHEN line_exists( giftcards[ KEY id Giftcardnumber = key-Giftcardnumber
-     %is_draft      = if_abap_behv=>mk-off ] )
-     THEN if_abap_behv=>fc-f-read_only
-     ELSE if_abap_behv=>fc-f-mandatory )
+* %features-%field-SapDescription = COND #(
+*     WHEN line_exists( giftcards[ KEY id Giftcardnumber = key-Giftcardnumber
+*     %is_draft      = if_abap_behv=>mk-off ] )
+*     THEN if_abap_behv=>fc-f-read_only
+*     ELSE if_abap_behv=>fc-f-mandatory )
 ) ).
 
   ENDMETHOD.

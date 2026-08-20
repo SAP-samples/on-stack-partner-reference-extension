@@ -326,6 +326,24 @@
     "DOKLRELES":"",
     "DOKLDATE":"0000-00-00",
     "DOKLTIME":"00:00:00"
+   },
+   {
+    "ID":"NA",
+    "OBJECT":"ZPRA_LOYALTYHUB022",
+    "LANGU":"D",
+    "TYP":"E",
+    "DOKVERSION":1,
+    "DOKSTATE":"N",
+    "DOKFORM":"S_DOCU_SHOW",
+    "DOKSTYLE":"S_DOCUS1",
+    "DOKFUSER":"SAP_CUSTOMER",
+    "DOKFRELES":"",
+    "DOKFDATE":"0000-00-00",
+    "DOKFTIME":"00:00:00",
+    "DOKLUSER":"SAP_CUSTOMER",
+    "DOKLRELES":"",
+    "DOKLDATE":"0000-00-00",
+    "DOKLTIME":"00:00:00"
    }
   ]
  },
@@ -530,6 +548,17 @@
     "TXTLINES":0,
     "DOKSTATE":"N",
     "SELFDEF":"3"
+   },
+   {
+    "ID":"NA",
+    "OBJECT":"ZPRA_LOYALTYHUB022",
+    "LANGU":"D",
+    "TYP":"E",
+    "VERSION":1,
+    "MASTERLANG":"X",
+    "TXTLINES":0,
+    "DOKSTATE":"N",
+    "SELFDEF":"3"
    }
   ]
  },
@@ -644,6 +673,12 @@
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"021",
     "TEXT":"For the default category, Minimum points must not exceed zero."
+   },
+   {
+    "SPRSL":"E",
+    "ARBGB":"ZPRA_LOYALTYHUB",
+    "MSGNR":"022",
+    "TEXT":"To create a membership, first define the category details."
    }
   ]
  },
@@ -682,126 +717,133 @@
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"000",
     "NAME":"SAP_CUSTOMER",
-    "DATUM":"2026-03-02",
+    "DATUM":"2026-08-20",
     "SELFDEF":"3"
    },
    {
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"001",
     "NAME":"SAP_CUSTOMER",
-    "DATUM":"2026-03-02",
+    "DATUM":"2026-08-20",
     "SELFDEF":"3"
    },
    {
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"002",
     "NAME":"SAP_CUSTOMER",
-    "DATUM":"2026-03-02",
+    "DATUM":"2026-08-20",
     "SELFDEF":"3"
    },
    {
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"003",
     "NAME":"SAP_CUSTOMER",
-    "DATUM":"2026-03-02",
+    "DATUM":"2026-08-20",
     "SELFDEF":"3"
    },
    {
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"006",
     "NAME":"SAP_CUSTOMER",
-    "DATUM":"2026-03-02",
+    "DATUM":"2026-08-20",
     "SELFDEF":"3"
    },
    {
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"007",
     "NAME":"SAP_CUSTOMER",
-    "DATUM":"2026-03-02",
+    "DATUM":"2026-08-20",
     "SELFDEF":"3"
    },
    {
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"009",
     "NAME":"SAP_CUSTOMER",
-    "DATUM":"2026-03-02",
+    "DATUM":"2026-08-20",
     "SELFDEF":"3"
    },
    {
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"010",
     "NAME":"SAP_CUSTOMER",
-    "DATUM":"2026-03-02",
+    "DATUM":"2026-08-20",
     "SELFDEF":"3"
    },
    {
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"011",
     "NAME":"SAP_CUSTOMER",
-    "DATUM":"2026-03-02",
+    "DATUM":"2026-08-20",
     "SELFDEF":"3"
    },
    {
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"012",
     "NAME":"SAP_CUSTOMER",
-    "DATUM":"2026-03-02",
+    "DATUM":"2026-08-20",
     "SELFDEF":"3"
    },
    {
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"013",
     "NAME":"SAP_CUSTOMER",
-    "DATUM":"2026-03-02",
+    "DATUM":"2026-08-20",
     "SELFDEF":"3"
    },
    {
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"014",
     "NAME":"SAP_CUSTOMER",
-    "DATUM":"2026-03-02",
+    "DATUM":"2026-08-20",
     "SELFDEF":"3"
    },
    {
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"015",
     "NAME":"SAP_CUSTOMER",
-    "DATUM":"2026-03-02",
+    "DATUM":"2026-08-20",
     "SELFDEF":"3"
    },
    {
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"017",
     "NAME":"SAP_CUSTOMER",
-    "DATUM":"2026-03-02",
+    "DATUM":"2026-08-20",
     "SELFDEF":"3"
    },
    {
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"018",
     "NAME":"SAP_CUSTOMER",
-    "DATUM":"2026-03-02",
+    "DATUM":"2026-08-20",
     "SELFDEF":"3"
    },
    {
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"019",
     "NAME":"SAP_CUSTOMER",
-    "DATUM":"2026-03-02",
+    "DATUM":"2026-08-20",
     "SELFDEF":"3"
    },
    {
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"020",
     "NAME":"SAP_CUSTOMER",
-    "DATUM":"2026-03-02",
+    "DATUM":"2026-08-20",
     "SELFDEF":"3"
    },
    {
     "ARBGB":"ZPRA_LOYALTYHUB",
     "MSGNR":"021",
     "NAME":"SAP_CUSTOMER",
-    "DATUM":"2026-03-02",
+    "DATUM":"2026-08-20",
+    "SELFDEF":"3"
+   },
+   {
+    "ARBGB":"ZPRA_LOYALTYHUB",
+    "MSGNR":"022",
+    "NAME":"SAP_CUSTOMER",
+    "DATUM":"2026-08-20",
     "SELFDEF":"3"
    }
   ]
@@ -830,8 +872,8 @@
     "CRELEASE":"",
     "DELFLAG":"",
     "TRANSLTTXT":"",
-    "CREATED_ON":"2026-02-16",
-    "CHECK_DATE":"2026-02-16",
+    "CREATED_ON":"2026-06-22",
+    "CHECK_DATE":"2026-06-22",
     "CHECK_CFG":""
    }
   ]

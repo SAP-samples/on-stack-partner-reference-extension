@@ -9,7 +9,7 @@
     "AS4USER":"SAP_CUSTOMER",
     "AS4DATE":"0000-00-00",
     "AS4TIME":"00:00:00",
-    "SOURCE":"@AccessControl.authorizationCheck: #NOT_REQUIRED\r\n@EndUserText.label: 'Loyalty Hub Transactions'\r\n@Metadata.allowExtensions: true \r\n@Metadata.ignorePropagatedAnnotations: true\r\ndefine view entity ZLH_C_TRANSACTIONS as projection on ZLH_R_TRANSACTIONS\r\n{\r\n  key TransactionId,\r\n  BusinessPartner,\r\n  Membershipid,\r\n  RefSalesorderId,\r\n  ActivityType,\r\n  @Semantics.amount.currencyCode : 'TransactionCurrency'\r\n  TransactionAmount,\r\n  TransactionCurrency,\r\n  LoyaltyPoints,\r\n  CreatedBy,\r\n  TransactionDate,\r\n  LastChangedat,\r\n  LastChangedby,\r\n  PointExpiryDate,\r\n  _BP       : redirected to parent ZLH_C_BusinessPartner\r\n}\r\n/*+[internal] {\n\"BASEINFO\":\n{\n\"FROM\":\n[\n\"ZLH_R_TRANSACTIONS\"\n],\n\"ASSOCIATED\":\n[\n\"ZLH_C_BUSINESSPARTNER\",\n\"ZLH_R_BUSINESSPARTNER\"\n],\n\"BASE\":\n[\n\"ZLH_R_TRANSACTIONS\"\n],\n\"ANNO_REF\":\n[],\n\"SCALAR_FUNCTION\":\n[],\n\"VERSION\":0,\n\"ANNOREF_EVALUATION_ERROR\":\"\"\n}\n}*/",
+    "SOURCE":"@AccessControl.authorizationCheck: #NOT_REQUIRED\r\n@EndUserText.label: 'Loyalty Hub Transactions'\r\n@Metadata.allowExtensions: true\r\n@Metadata.ignorePropagatedAnnotations: true\r\ndefine view entity ZLH_C_TRANSACTIONS\r\n  as projection on ZLH_R_TRANSACTIONS\r\n{\r\n  key TransactionId,\r\n      BusinessPartner,\r\n      Membershipid,\r\n      RefSalesorderId,\r\n      ActivityType,\r\n      @Semantics.amount.currencyCode : 'TransactionCurrency'\r\n      TransactionAmount,\r\n      TransactionCurrency,\r\n      @ObjectModel.text.element: [ 'FormatedLoyaltyPoints' ]\r\n      LoyaltyPoints,\r\n      ActivityCriticality,\r\n      FormatedLoyaltyPoints,\r\n      CreatedBy,\r\n      TransactionDate,\r\n      LastChangedat,\r\n      LastChangedby,\r\n      PointExpiryDate,\r\n      _BP : redirected to parent ZLH_C_BusinessPartner\r\n}\r\n/*+[internal] {\n\"BASEINFO\":\n{\n\"FROM\":\n[\n\"ZLH_R_TRANSACTIONS\"\n],\n\"ASSOCIATED\":\n[\n\"ZLH_C_BUSINESSPARTNER\",\n\"ZLH_R_BUSINESSPARTNER\"\n],\n\"BASE\":\n[\n\"ZLH_R_TRANSACTIONS\"\n],\n\"ANNO_REF\":\n[],\n\"SCALAR_FUNCTION\":\n[],\n\"VERSION\":0,\n\"ANNOREF_EVALUATION_ERROR\":\"\"\n}\n}*/",
     "PARENTNAME":"",
     "ACTFLAG":"",
     "CHGFLAG":"D",
@@ -48,6 +48,20 @@
   "table":"DDFIELDANNO",
   "data":
   [
+   {
+    "STRUCOBJN":"ZLH_C_TRANSACTIONS",
+    "LFIELDNAME":"LOYALTYPOINTS",
+    "NAME":"OBJECTMODEL",
+    "POSITION":5,
+    "VALUE":""
+   },
+   {
+    "STRUCOBJN":"ZLH_C_TRANSACTIONS",
+    "LFIELDNAME":"LOYALTYPOINTS",
+    "NAME":"OBJECTMODEL.TEXT.ELEMENT$1$",
+    "POSITION":6,
+    "VALUE":"'FormatedLoyaltyPoints'"
+   },
    {
     "STRUCOBJN":"ZLH_C_TRANSACTIONS",
     "LFIELDNAME":"MANDT",

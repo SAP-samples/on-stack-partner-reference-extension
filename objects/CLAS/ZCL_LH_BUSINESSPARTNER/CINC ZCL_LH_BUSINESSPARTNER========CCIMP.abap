@@ -1,4 +1,9 @@
-CLASS lhc_BusinessPartner DEFINITION INHERITING FROM cl_abap_behavior_handler.
+CLASS ltcl_bp_behavior_handler DEFINITION DEFERRED FOR TESTING.
+CLASS ltcl_category_behavior_handler DEFINITION DEFERRED FOR TESTING.
+
+CLASS lhc_BusinessPartner DEFINITION INHERITING FROM cl_abap_behavior_handler
+  FRIENDS: ltcl_bp_behavior_handler ltcl_category_behavior_handler.
+
   PRIVATE SECTION.
 
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
@@ -32,6 +37,9 @@ CLASS lhc_BusinessPartner DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS precheck_cba_Transactions FOR PRECHECK
       IMPORTING keys FOR CREATE ZLH_R_BusinessPartner\_Transactions.
 
+    METHODS reactivateMembership FOR MODIFY
+      IMPORTING keys FOR ACTION ZLH_R_BusinessPartner~reactivateMembership RESULT result.
+
 *    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
 *          IMPORTING REQUEST requested_authorizations FOR ZLH_R_BusinessPartner RESULT result.
 
@@ -56,22 +64,22 @@ CLASS lhc_BusinessPartner IMPLEMENTATION.
     WITH CORRESPONDING #( keys )
     RESULT DATA(Memberships).
 
-    LOOP AT BusinessPartners ASSIGNING FIELD-SYMBOL(<businesspartner>).
-      DATA(membership_of_bp) = value #( memberships[ BusinessPartner = <businesspartner>-SoldToParty ] optional ).
-      IF membership_of_bp-BusinessPartner is not initial and requested_authorizations-%update = if_abap_behv=>mk-on. "only onboading team can change
-        IF membership_of_bp-MembershipStatus = zif_lh_constants=>membership_status-active.
-          APPEND VALUE #( %tky = <businesspartner>-%tky
-                          %update = if_abap_behv=>auth-allowed ) TO result.
-        ELSE.
-          APPEND VALUE #( %tky = <businesspartner>-%tky
-                          %update = if_abap_behv=>auth-unauthorized ) TO result.
-          APPEND VALUE #( %msg        = new_message( id        = 'ZPRA_LOYALTYHUB'
-                                                     number    = '014'
-                                                     severity  = if_abap_behv_message=>severity-error
-                        ) ) TO reported-zlh_r_businesspartner.
-        ENDIF.
-      ENDIF.
-    ENDLOOP.
+*    LOOP AT BusinessPartners ASSIGNING FIELD-SYMBOL(<businesspartner>).
+*      DATA(membership_of_bp) = value #( memberships[ BusinessPartner = <businesspartner>-SoldToParty ] optional ).
+*      IF membership_of_bp-BusinessPartner is not initial and requested_authorizations-%update = if_abap_behv=>mk-on. "only onboading team can change
+*        IF membership_of_bp-MembershipStatus = zif_lh_constants=>membership_status-active.
+*          APPEND VALUE #( %tky = <businesspartner>-%tky
+*                          %update = if_abap_behv=>auth-allowed ) TO result.
+*        ELSE.
+*          APPEND VALUE #( %tky = <businesspartner>-%tky
+*                          %update = if_abap_behv=>auth-unauthorized ) TO result.
+*          APPEND VALUE #( %msg        = new_message( id        = 'ZPRA_LOYALTYHUB'
+*                                                     number    = '014'
+*                                                     severity  = if_abap_behv_message=>severity-error
+*                        ) ) TO reported-zlh_r_businesspartner.
+*        ENDIF.
+*      ENDIF.
+*    ENDLOOP.
   ENDMETHOD.
 
   METHOD get_instance_features.
@@ -91,12 +99,12 @@ CLASS lhc_BusinessPartner IMPLEMENTATION.
       membership_status = 'I'.
     ENDIF.
 
-         AUTHORITY-CHECK OBJECT 'ZLOYLTYHUB'
-    ID 'ZLH_USER' FIELD 'ADMIN'
-    ID 'ACTVT' FIELD '01'.
+    AUTHORITY-CHECK OBJECT 'ZLOYLTYHUB'
+ID 'ZLH_USER' FIELD 'ADMIN'
+ID 'ACTVT' FIELD '01'.
 
     IF sy-subrc = 0.
-      data(has_admin_auth) = abap_true.
+      DATA(has_admin_auth) = abap_true.
     ELSE.
       has_admin_auth = abap_false.
     ENDIF.
@@ -104,10 +112,14 @@ CLASS lhc_BusinessPartner IMPLEMENTATION.
     result = VALUE #( FOR ls_BP IN BusinessPartners
                          ( %tky = ls_bp-%tky
 
-                           %action-createMembership          = COND #( WHEN  lines( memberships ) EQ 0 and BusinessPartners[ 1 ]-%is_draft = '01'
+                           %action-createMembership          = COND #( WHEN  lines( memberships ) EQ 0 AND BusinessPartners[ 1 ]-%is_draft = '01'
                                                                  THEN if_abap_behv=>fc-o-enabled
                                                                  ELSE if_abap_behv=>fc-o-disabled )
                            %action-deleteMembership          = COND #( WHEN membership_status EQ zif_lh_constants=>membership_status-active
+                                                                        AND BusinessPartners[ 1 ]-%is_draft = '01'
+                                                                 THEN if_abap_behv=>fc-o-enabled
+                                                                 ELSE if_abap_behv=>fc-o-disabled )
+                           %action-reactivateMembership          = COND #( WHEN lines( memberships ) > 0 AND membership_status EQ zif_lh_constants=>membership_status-inactive
                                                                         AND BusinessPartners[ 1 ]-%is_draft = '01'
                                                                  THEN if_abap_behv=>fc-o-enabled
                                                                  ELSE if_abap_behv=>fc-o-disabled )
@@ -353,32 +365,6 @@ CLASS lhc_BusinessPartner IMPLEMENTATION.
 
 
       RETURN.
-    ELSE.
-      " Prepare business partner keys for loyalty points retrieval
-      DATA(bp_keys) = VALUE zcl_lh_loyalty_points=>business_partner_keys(
-        FOR key IN keys ( sold_to_party = key-SoldToParty ) ).
-
-      " Get loyalty points for all business partners in one call
-      DATA(loyalty_results) = zcl_lh_loyalty_points=>get_points( bp_keys ).
-
-      " Calulate total loyalty points
-      DATA(loyalty_result) = VALUE #( loyalty_results[ business_partner = keys[ 1 ]-SoldToParty ] OPTIONAL ).
-      DATA(total_loyalty_points) = loyalty_result-available + loyalty_result-redeemed.
-
-      " Display insufficient points if it is less than the threshold.
-      IF total_loyalty_points < default_category_threshold.
-        APPEND VALUE #( %tky = CORRESPONDING #( keys[ 1 ]-%tky ) ) TO failed-zlh_r_businesspartner.
-        APPEND VALUE #(
-          %tky = CORRESPONDING #( keys[ 1 ]-%tky )
-          %msg = new_message(
-                   id       = 'ZPRA_LOYALTYHUB'
-                   number   = '021'
-                   severity = if_abap_behv_message=>severity-error
-                   v1       = |{ default_category_threshold }|
-                 )
-        ) TO reported-zlh_r_businesspartner.
-        RETURN.
-      ENDIF.
     ENDIF.
 
     memberships_create = VALUE #(
@@ -434,7 +420,7 @@ CLASS lhc_BusinessPartner IMPLEMENTATION.
       WITH VALUE #( ( SoldToParty = keys[ 1 ]-SoldToParty ) )
       RESULT DATA(categories).
 
-    IF line_exists( categories[ Key entity COMPONENTS
+    IF line_exists( categories[ KEY entity COMPONENTS
                                 BusinessPartner = keys[ 1 ]-SoldToParty
                                 MembershipID = membershipids[ 1 ]-MembershipID
                                 CategoryID = new_categoryid ] ).
@@ -481,15 +467,26 @@ CLASS lhc_BusinessPartner IMPLEMENTATION.
         ) TO reported-zlh_r_category.
         RETURN.
       ENDIF.
+    ELSE.
+      APPEND VALUE #( %tky = CORRESPONDING #( keys[ 1 ]-%tky ) ) TO failed-zlh_r_category.
+      APPEND VALUE #(
+        %tky = CORRESPONDING #( keys[ 1 ]-%tky )
+        %msg = new_message(
+                 id       = 'ZPRA_LOYALTYHUB'
+                 number   = '021'
+                 severity = if_abap_behv_message=>severity-error
+               )
+      ) TO reported-zlh_r_category.
+      RETURN.
     ENDIF.
 
     IF membershipids[] IS NOT INITIAL.
 
       new_category = VALUE #( ( %tky-MembershipID = membershipids[ 1 ]-MembershipID
-                                %tky-%is_draft = if_abap_behv=>mk-on
+                                %tky-%is_draft = keys[ 1 ]-%is_draft
                                 %target = VALUE #(  (
                                            %cid = 'CID'
-                                           %is_draft = if_abap_behv=>mk-on
+                                           %is_draft = keys[ 1 ]-%is_draft
                                            CategoryID = keys[ 1 ]-%param-Categoryid
                                            BusinessPartner = keys[ 1 ]-SoldToParty
                                            MembershipID = membershipids[ 1 ]-MembershipID
@@ -615,6 +612,41 @@ WITH CORRESPONDING #( keys )
       REPORTED DATA(reportedtransactions)
       FAILED DATA(failedtransactions).
 **********************************************************************
+* deduct all available loyalty points
+    DATA(loyalty_results) = zcl_lh_loyalty_points=>get_points(
+      VALUE #( FOR key IN keys ( sold_to_party = key-SoldToParty ) ) ).
+
+    DATA deactivation_transactions TYPE TABLE FOR CREATE ZLH_R_BusinessPartner\_Transactions.
+
+    LOOP AT loyalty_results REFERENCE INTO DATA(loyalty_result).
+      CHECK loyalty_result->available > 0.
+      DATA(bp_key) = VALUE #( keys[ SoldToParty = loyalty_result->business_partner ] OPTIONAL ).
+      APPEND VALUE #(
+        %tky-SoldToParty = loyalty_result->business_partner
+        %is_draft        = bp_key-%is_draft
+        %target          = VALUE #( (
+          %cid                     = |deactivation_txn_{ loyalty_result->business_partner }|
+          %is_draft                = bp_key-%is_draft
+          ActivityType             = zif_lh_constants=>activity-deactivation
+          LoyaltyPoints            = loyalty_result->available
+          TransactionDate          = cl_abap_context_info=>get_system_date( )
+          %control-ActivityType    = if_abap_behv=>mk-on
+          %control-LoyaltyPoints   = if_abap_behv=>mk-on
+          %control-TransactionDate = if_abap_behv=>mk-on
+        ) )
+      ) TO deactivation_transactions.
+    ENDLOOP.
+
+    IF deactivation_transactions IS NOT INITIAL.
+      MODIFY ENTITIES OF ZLH_R_BusinessPartner IN LOCAL MODE
+        ENTITY ZLH_R_BusinessPartner
+        CREATE BY \_Transactions
+        FROM deactivation_transactions
+        FAILED failed
+        REPORTED reported.
+    ENDIF.
+
+**************************************************************************
     result = VALUE #( FOR ls_bp IN lt_BP
                     ( %tky   = ls_bp-%tky
                       %param = ls_bp ) ).
@@ -633,7 +665,7 @@ WITH CORRESPONDING #( keys )
       DATA(membership) = VALUE #( memberships[ BusinessPartner = key->SoldToParty ] OPTIONAL ).
 
       " Block creation if membership is not active
-     IF membership-MembershipEndDate <> zif_lh_constants=>membership_enddate.
+      IF membership-MembershipEndDate <> zif_lh_constants=>membership_enddate.
         APPEND VALUE #( %tky = key->%tky ) TO failed-zlh_r_businesspartner.
         APPEND VALUE #( %tky = key->%tky
                         %msg = new_message(
@@ -648,12 +680,12 @@ WITH CORRESPONDING #( keys )
   ENDMETHOD.
 
   METHOD GetDefaultsForGiftCard.
-   READ ENTITIES OF ZLH_R_BusinessPartner IN LOCAL MODE
-      ENTITY ZLH_R_BusinessPartner
-      BY \_GiftCard
-      all FIELDS
-      WITH CORRESPONDING #( keys )
-      RESULT DATA(Memberships).
+    READ ENTITIES OF ZLH_R_BusinessPartner IN LOCAL MODE
+       ENTITY ZLH_R_BusinessPartner
+       BY \_GiftCard
+       ALL FIELDS
+       WITH CORRESPONDING #( keys )
+       RESULT DATA(Memberships).
     DATA(loyalty_results) = zcl_lh_loyalty_points=>get_points(
     VALUE #( FOR key IN keys ( sold_to_party = key-SoldToParty ) )
   ).
@@ -705,6 +737,63 @@ WITH CORRESPONDING #( keys )
                       ) TO reported-zlh_r_businesspartner.
       ENDIF.
     ENDLOOP.
+  ENDMETHOD.
+
+  METHOD reactivateMembership.
+
+    " Reactivate membership: set status Active and end date to 9999
+    READ ENTITIES OF ZLH_R_BusinessPartner IN LOCAL MODE
+      ENTITY ZLH_R_BusinessPartner
+      BY \_MemberShip
+      FIELDS ( MembershipID MembershipStatus )
+      WITH CORRESPONDING #( keys )
+      RESULT DATA(memberships).
+
+    MODIFY ENTITIES OF ZLH_R_BusinessPartner IN LOCAL MODE
+      ENTITY ZLH_R_Membership
+      UPDATE FIELDS ( MembershipEndDate MembershipStatus )
+      WITH VALUE #( FOR membership IN memberships
+                    ( %tky              = membership-%tky
+                      MembershipEndDate = zif_lh_constants=>membership_enddate
+                      MembershipStatus  = zif_lh_constants=>membership_status-active ) )
+      FAILED failed
+      REPORTED reported.
+
+    " Find latest category (StartDate DESC, CategoryID DESC) and reactivate it
+    READ ENTITIES OF ZLH_R_BusinessPartner IN LOCAL MODE
+      ENTITY ZLH_R_BusinessPartner
+      BY \_Category
+      FIELDS ( CategoryID StartDate EndDate Status )
+      WITH CORRESPONDING #( keys )
+      RESULT DATA(categories).
+
+    SORT categories BY StartDate DESCENDING CategoryID DESCENDING.
+
+    IF categories IS NOT INITIAL.
+      DATA(latest_category) = categories[ 1 ].
+
+      MODIFY ENTITIES OF ZLH_R_BusinessPartner IN LOCAL MODE
+        ENTITY ZLH_R_Category
+        UPDATE FIELDS ( EndDate Status StatusCriticality )
+        WITH VALUE #( ( %tky               = latest_category-%tky
+                        EndDate            = zif_lh_constants=>category_enddate
+                        Status             = zif_lh_constants=>category_status-active
+                        %control-EndDate            = if_abap_behv=>mk-on
+                        %control-Status             = if_abap_behv=>mk-on ) )
+        FAILED failed
+        REPORTED reported.
+    ENDIF.
+
+    " Return result
+    READ ENTITIES OF ZLH_R_BusinessPartner IN LOCAL MODE
+      ENTITY ZLH_R_BusinessPartner
+      ALL FIELDS WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_bp).
+
+    result = VALUE #( FOR ls_bp IN lt_bp
+                      ( %tky   = ls_bp-%tky
+                        %param = ls_bp ) ).
+
   ENDMETHOD.
 
 ENDCLASS.

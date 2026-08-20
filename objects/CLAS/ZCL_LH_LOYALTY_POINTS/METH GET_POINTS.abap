@@ -19,22 +19,21 @@
         SUM( CASE
                " For INACTIVE memberships: include points ONLY if expiry date = membership end date
                WHEN membership~membershipstatus = 'I'
-                 AND transactions~activitytype IN ( @zif_lh_constants=>activity-accrual, @zif_lh_constants=>activity-bonus,
-                 @zif_lh_constants=>activity-promotion, @zif_lh_constants=>activity-purchase )
-                 AND transactions~pointexpirydate = membership~membershipenddate
-               THEN transactions~loyaltypoints
+               THEN 0
 
                " For ACTIVE memberships: include points if expiry date >= today
                WHEN ( membership~membershipstatus IS INITIAL OR membership~membershipstatus = @zif_lh_constants=>membership_status-active )
                  AND transactions~activitytype IN (@zif_lh_constants=>activity-accrual, @zif_lh_constants=>activity-bonus,
                  @zif_lh_constants=>activity-promotion, @zif_lh_constants=>activity-purchase)
-                 AND transactions~pointexpirydate >= @today
                THEN transactions~loyaltypoints
-
                ELSE 0
              END )
         - SUM( CASE
+        WHEN membership~membershipstatus = 'I'
+               THEN 0
                  WHEN transactions~activitytype = @zif_lh_constants=>activity-redemption
+                 THEN transactions~loyaltypoints
+                 WHEN transactions~activitytype = @zif_lh_constants=>activity-deactivation
                  THEN transactions~loyaltypoints
                  ELSE 0
                END ) AS available,
@@ -42,6 +41,9 @@
         " Redeemed points
         SUM( CASE
                WHEN transactions~activitytype = @zif_lh_constants=>activity-redemption
+               THEN transactions~loyaltypoints
+
+               WHEN transactions~activitytype = @zif_lh_constants=>activity-deactivation
                THEN transactions~loyaltypoints
                ELSE 0
              END ) AS redeemed

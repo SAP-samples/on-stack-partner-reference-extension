@@ -7,9 +7,9 @@
     "DDLXNAME":"ZLH_E_BUSINESSPARTNER",
     "VERSION":"A",
     "CHANGED_BY":"SAP_CUSTOMER",
-    "CHANGED_ON":"2026-02-25",
-    "CHANGED_AT":"05:19:47",
-    "UUID":"FA163ECAAA341FD184C1332B10F5E183",
+    "CHANGED_ON":"2026-04-06",
+    "CHANGED_AT":"10:32:43",
+    "UUID":"FA163ECAAA341FD18CB47E38904821A5",
     "ABAP_LANGUAGE_VERSION":"5"
    }
   ]
@@ -34,7 +34,7 @@
     "DDLXNAME":"ZLH_E_BUSINESSPARTNER",
     "VERSION":"A",
     "UUID":"",
-    "SOURCE":"@Metadata.layer: #CORE\r\n@UI.headerInfo: {\r\n    typeName:       'Membership Overview',\r\n    typeNamePlural: 'Membership Overview',\r\n    title: {\r\n        type:  #STANDARD,\r\n        value: 'CustomerName' },\r\n    description : {\r\n        type: #WITH_INTENT_BASED_NAVIGATION,\r\n        value: 'SoldToParty' \r\n        }\r\n        \r\n}\r\nannotate entity ZLH_C_BusinessPartner with\r\n{\r\n\r\n  @UI.facet:\r\n   [\r\n   {\r\n     id:'MembershipInfo',\r\n     type:#FIELDGROUP_REFERENCE,\r\n     purpose: #HEADER,\r\n     position:10,\r\n     targetQualifier:'MembershipInfo'\r\n   },\r\n    { id:'LoyaltyPointsAvailable',\r\n     type: #DATAPOINT_REFERENCE,\r\n     purpose: #HEADER,\r\n     position:20,\r\n     targetQualifier:'LoyaltyPointsAvailable'\r\n   },\r\n   { id:'LoyaltyPointsRedeemed',\r\n     type: #DATAPOINT_REFERENCE,\r\n     purpose: #HEADER,\r\n     position:30,\r\n     targetQualifier:'LoyaltyPointsRedeemed'\r\n   },\r\n   {\r\n     label:'Transactions',\r\n     id:'Transactions',\r\n     type:#PRESENTATIONVARIANT_REFERENCE,\r\n     position:20,\r\n     targetElement:'_Transactions'\r\n    },\r\n    {\r\n     label:'Gift Cards',\r\n     id:'GiftCard',\r\n     type:#PRESENTATIONVARIANT_REFERENCE,\r\n     position:30,\r\n     targetElement:'_GiftCard',\r\n     purpose: #STANDARD\r\n    },\r\n       {\r\n     label:'Category',\r\n     id:'Category',\r\n     type:#PRESENTATIONVARIANT_REFERENCE,\r\n     position:15,\r\n     targetElement:'_Category'\r\n    }\r\n   ]\r\n\r\n  @UI: {\r\n   selectionField: [{position:10}],\r\n   \r\n   lineItem:[{ position:10,importance:#HIGH,\r\n   type: #WITH_INTENT_BASED_NAVIGATION,\r\n    semanticObject: 'BusinessPartner', semanticObjectAction: 'manage',\r\n    semanticObjectBinding: [{element: 'BusinessPartner',localElement: 'SoldToParty'  }]}]\r\n  }\r\n\r\n\r\n  @UI.identification:[\r\n                      {type: #FOR_ACTION, dataAction: 'createMembership', label: 'Create Membership',position: 10 },\r\n                    {type: #FOR_ACTION, dataAction: 'deleteMembership', label: 'Delete Membership',position: 20 }]\r\n                    \r\n\r\n\r\n  @EndUserText.label:'Sold-to Party'\r\n  @Search: { defaultSearchElement: true, ranking: #HIGH, fuzzinessThreshold: 0.95 }\r\n  SoldToParty;\r\n  @UI: {\r\n  selectionField: [{position:20}],\r\n  lineItem:[{ position:20,importance:#HIGH}]}\r\n  @EndUserText.label:'Sold-to Party Name'\r\n//  @UI.identification: [{ type: #FOR_ACTION, dataAction: 'createCategory', label: 'Create Category' },\r\n//                       { position: 60 }]\r\n  CustomerName;\r\n  @UI: {\r\n      selectionField: [{ position: 20 }],\r\n      lineItem: [{ position: 20 }],\r\n      fieldGroup:[{ qualifier:'MembershipInfo',position:10, importance: #HIGH}]\r\n      }\r\n  @Search: { defaultSearchElement: true, ranking: #HIGH, fuzzinessThreshold: 0.95 }\r\n  MemberShipID;\r\n  @UI: {\r\n  lineItem: [{ position: 30, label: 'Category' }],\r\n  fieldGroup:[{ qualifier:'MembershipInfo',position:20, label: 'Category', importance: #HIGH}]\r\n  }\r\n  MembershipCategory;\r\n  \r\n  @UI.hidden: true\r\n  UserID;\r\n\r\n//  @UI: {\r\n//  fieldGroup:[{ qualifier:'MembershipInfo',position:30, label: 'Status', importance: #HIGH}]\r\n//  }\r\n//  @UI.hidden: true\r\n//  MembershipStatus;\r\n  \r\n        @UI: {\r\n        lineItem: [{ position: 32, label: 'Start Date' }],\r\n  fieldGroup:[{ qualifier:'MembershipInfo',position:31, label: 'Start Date', importance: #HIGH}]\r\n  }\r\n  MemberSince;\r\n    @UI: {\r\n    lineItem: [{ position: 35, label: 'End Date' }],\r\n  fieldGroup:[{ qualifier:'MembershipInfo',position:32, label: 'End Date', importance: #HIGH}]\r\n  }\r\n  \r\n  MembershipEndDate;\r\n  @UI.lineItem: [{ position: 40 }]\r\n  @UI.dataPoint: { qualifier: 'LoyaltyPointsAvailable', title: 'Loyalty Points Available', criticality: 'LltyPtsAvailableCriticality' }\r\n  @EndUserText.label:'Loyalty Points Available'\r\n  TotalLoyaltyPointsAvailable;\r\n  @UI.dataPoint: { qualifier: 'LoyaltyPointsRedeemed', title: 'Loyalty Points Redeemed' }\r\n  @EndUserText.label:'Loyalty Points Redeemed'\r\n  TotalLoyaltyPointsRedeemed;\r\n\r\n  @UI.hidden: true\r\n  LltyPtsAvailableCriticality;\r\n  \r\n  @UI.hidden: true\r\n  LoyaltyMembershipCriticality;\r\n}"
+    "SOURCE":"@Metadata.layer: #CORE\r\n@UI.headerInfo: {\r\n    typeName:       'Membership Overview',\r\n    typeNamePlural: 'Membership Overview',\r\n    title: {\r\n        type:  #STANDARD,\r\n        value: 'CustomerName' },\r\n    description : {\r\n        type: #WITH_INTENT_BASED_NAVIGATION,\r\n        value: 'SoldToParty' \r\n        }\r\n        \r\n}\r\nannotate entity ZLH_C_BusinessPartner with\r\n{\r\n\r\n  @UI.facet:\r\n   [\r\n   {\r\n     id:'MembershipInfo',\r\n     type:#FIELDGROUP_REFERENCE,\r\n     purpose: #HEADER,\r\n     position:10,\r\n     targetQualifier:'MembershipInfo'\r\n   },\r\n    { id:'LoyaltyPointsAvailable',\r\n     type: #DATAPOINT_REFERENCE,\r\n     purpose: #HEADER,\r\n     position:20,\r\n     targetQualifier:'LoyaltyPointsAvailable'\r\n   },\r\n   { id:'LoyaltyPointsRedeemed',\r\n     type: #DATAPOINT_REFERENCE,\r\n     purpose: #HEADER,\r\n     position:30,\r\n     targetQualifier:'LoyaltyPointsRedeemed'\r\n   },\r\n   {\r\n     label:'Transactions',\r\n     id:'Transactions',\r\n     type:#PRESENTATIONVARIANT_REFERENCE,\r\n     position:20,\r\n     targetElement:'_Transactions'\r\n    },\r\n    {\r\n     label:'Gift Cards',\r\n     id:'GiftCard',\r\n     type:#PRESENTATIONVARIANT_REFERENCE,\r\n     position:30,\r\n     targetElement:'_GiftCard',\r\n     purpose: #STANDARD\r\n    },\r\n       {\r\n     label:'Category',\r\n     id:'Category',\r\n     type:#PRESENTATIONVARIANT_REFERENCE,\r\n     position:15,\r\n     targetElement:'_Category'\r\n    }\r\n   ]\r\n\r\n  @UI: {\r\n   selectionField: [{position:10}],\r\n   textArrangement: #TEXT_FIRST,\r\n   lineItem:[{ position:10,importance:#HIGH,\r\n   type: #WITH_INTENT_BASED_NAVIGATION,\r\n    semanticObject: 'BusinessPartner', semanticObjectAction: 'manage',\r\n    semanticObjectBinding: [{element: 'BusinessPartner',localElement: 'SoldToParty'  }]}]\r\n  }\r\n\r\n\r\n  @UI.identification:[\r\n                      {type: #FOR_ACTION, dataAction: 'createMembership', label: 'Create Membership',position: 10 },\r\n                    {type: #FOR_ACTION, dataAction: 'deleteMembership', label: 'Delete Membership',position: 20 },\r\n                    {type: #FOR_ACTION, dataAction: 'reactivateMembership', label: 'Reactivate Membership',position: 30 }]\r\n                    \r\n\r\n\r\n  @EndUserText.label:'Sold-to Party'\r\n  @Search: { defaultSearchElement: true, ranking: #HIGH, fuzzinessThreshold: 0.95 }\r\n  SoldToParty;\r\n//  @UI: {\r\n//  selectionField: [{position:20}],\r\n//  lineItem:[{ position:20,importance:#HIGH}]}\r\n//  @EndUserText.label:'Sold-to Party Name'\r\n//  CustomerName;\r\n  @UI: {\r\n      selectionField: [{ position: 20 }],\r\n      lineItem: [{ position: 20 }],\r\n      fieldGroup:[{ qualifier:'MembershipInfo',position:10, importance: #HIGH}]\r\n      }\r\n  @Search: { defaultSearchElement: true, ranking: #HIGH, fuzzinessThreshold: 0.95 }\r\n  MemberShipID;\r\n  @UI: {\r\n  lineItem: [{ position: 30, label: 'Category' }],\r\n  fieldGroup:[{ qualifier:'MembershipInfo',position:20, label: 'Category', importance: #HIGH}]\r\n  }\r\n  MembershipCategory;\r\n  \r\n  @UI.hidden: true\r\n  UserID;\r\n\r\n//  @UI: {\r\n//  fieldGroup:[{ qualifier:'MembershipInfo',position:30, label: 'Status', importance: #HIGH}]\r\n//  }\r\n//  @UI.hidden: true\r\n//  MembershipStatus;\r\n  \r\n        @UI: {\r\n        lineItem: [{ position: 32, label: 'Start Date' }],\r\n  fieldGroup:[{ qualifier:'MembershipInfo',position:31, label: 'Start Date', importance: #HIGH}]\r\n  }\r\n  MemberSince;\r\n    @UI: {\r\n    lineItem: [{ position: 35, label: 'End Date' }],\r\n  fieldGroup:[{ qualifier:'MembershipInfo',position:32, label: 'End Date', importance: #HIGH}]\r\n  }\r\n  \r\n  MembershipEndDate;\r\n  @UI.lineItem: [{ position: 40 }]\r\n  @UI.dataPoint: { qualifier: 'LoyaltyPointsAvailable', title: 'Loyalty Points Available', criticality: 'LltyPtsAvailableCriticality' }\r\n  @EndUserText.label:'Loyalty Points Available'\r\n  TotalLoyaltyPointsAvailable;\r\n  @UI.dataPoint: { qualifier: 'LoyaltyPointsRedeemed', title: 'Loyalty Points Redeemed' }\r\n  @EndUserText.label:'Loyalty Points Redeemed'\r\n  TotalLoyaltyPointsRedeemed;\r\n\r\n  @UI.hidden: true\r\n  LltyPtsAvailableCriticality;\r\n  \r\n  @UI.hidden: true\r\n  LoyaltyMembershipCriticality;\r\n}"
    }
   ]
  },
@@ -83,34 +83,6 @@
     "NAME":"UI.HEADERINFO.TYPENAMEPLURAL",
     "ELEMENT_TYPE":"N",
     "VALUE":"'Membership Overview'"
-   },
-   {
-    "DDLXNAME":"ZLH_E_BUSINESSPARTNER",
-    "ELEMENT":"CUSTOMERNAME",
-    "NAME":"ENDUSERTEXT.LABEL",
-    "ELEMENT_TYPE":"S",
-    "VALUE":"'Sold-to Party Name'"
-   },
-   {
-    "DDLXNAME":"ZLH_E_BUSINESSPARTNER",
-    "ELEMENT":"CUSTOMERNAME",
-    "NAME":"UI.LINEITEM$1$.IMPORTANCE",
-    "ELEMENT_TYPE":"S",
-    "VALUE":"#HIGH"
-   },
-   {
-    "DDLXNAME":"ZLH_E_BUSINESSPARTNER",
-    "ELEMENT":"CUSTOMERNAME",
-    "NAME":"UI.LINEITEM$1$.POSITION",
-    "ELEMENT_TYPE":"S",
-    "VALUE":"20"
-   },
-   {
-    "DDLXNAME":"ZLH_E_BUSINESSPARTNER",
-    "ELEMENT":"CUSTOMERNAME",
-    "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "ELEMENT_TYPE":"S",
-    "VALUE":"20"
    },
    {
     "DDLXNAME":"ZLH_E_BUSINESSPARTNER",
@@ -612,6 +584,34 @@
    {
     "DDLXNAME":"ZLH_E_BUSINESSPARTNER",
     "ELEMENT":"SOLDTOPARTY",
+    "NAME":"UI.IDENTIFICATION$3$.DATAACTION",
+    "ELEMENT_TYPE":"S",
+    "VALUE":"'reactivateMembership'"
+   },
+   {
+    "DDLXNAME":"ZLH_E_BUSINESSPARTNER",
+    "ELEMENT":"SOLDTOPARTY",
+    "NAME":"UI.IDENTIFICATION$3$.LABEL",
+    "ELEMENT_TYPE":"S",
+    "VALUE":"'Reactivate Membership'"
+   },
+   {
+    "DDLXNAME":"ZLH_E_BUSINESSPARTNER",
+    "ELEMENT":"SOLDTOPARTY",
+    "NAME":"UI.IDENTIFICATION$3$.POSITION",
+    "ELEMENT_TYPE":"S",
+    "VALUE":"30"
+   },
+   {
+    "DDLXNAME":"ZLH_E_BUSINESSPARTNER",
+    "ELEMENT":"SOLDTOPARTY",
+    "NAME":"UI.IDENTIFICATION$3$.TYPE",
+    "ELEMENT_TYPE":"S",
+    "VALUE":"#FOR_ACTION"
+   },
+   {
+    "DDLXNAME":"ZLH_E_BUSINESSPARTNER",
+    "ELEMENT":"SOLDTOPARTY",
     "NAME":"UI.LINEITEM$1$.IMPORTANCE",
     "ELEMENT_TYPE":"S",
     "VALUE":"#HIGH"
@@ -664,6 +664,13 @@
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
     "ELEMENT_TYPE":"S",
     "VALUE":"10"
+   },
+   {
+    "DDLXNAME":"ZLH_E_BUSINESSPARTNER",
+    "ELEMENT":"SOLDTOPARTY",
+    "NAME":"UI.TEXTARRANGEMENT",
+    "ELEMENT_TYPE":"S",
+    "VALUE":"#TEXT_FIRST"
    },
    {
     "DDLXNAME":"ZLH_E_BUSINESSPARTNER",
@@ -747,13 +754,6 @@
     "ELEMENT":"",
     "NAME":"UI.HEADERINFO.TYPENAMEPLURAL",
     "TEXT":"Membership Overview"
-   },
-   {
-    "DDLXNAME":"ZLH_E_BUSINESSPARTNER",
-    "DDLANGUAGE":"E",
-    "ELEMENT":"CUSTOMERNAME",
-    "NAME":"ENDUSERTEXT.LABEL",
-    "TEXT":"Sold-to Party Name"
    },
    {
     "DDLXNAME":"ZLH_E_BUSINESSPARTNER",
@@ -842,6 +842,13 @@
    {
     "DDLXNAME":"ZLH_E_BUSINESSPARTNER",
     "DDLANGUAGE":"E",
+    "ELEMENT":"SOLDTOPARTY",
+    "NAME":"UI.IDENTIFICATION$3$.LABEL",
+    "TEXT":"Reactivate Membership"
+   },
+   {
+    "DDLXNAME":"ZLH_E_BUSINESSPARTNER",
+    "DDLANGUAGE":"E",
     "ELEMENT":"TOTALLOYALTYPOINTSAVAILABLE",
     "NAME":"ENDUSERTEXT.LABEL",
     "TEXT":"Loyalty Points Available"
@@ -878,8 +885,8 @@
     "EXTENDED_ARTIFACT":"ZLH_C_BUSINESSPARTNER",
     "VARIANT":"",
     "LAYER":1500,
-    "DT_UUID":"FA163ECAAA341FD184C1332B10F5E183",
-    "RT_HASH":"99D12BF6FBD4FAD86C434E398AEFF54D211E910B",
+    "DT_UUID":"FA163ECAAA341FD18CB47E38904821A5",
+    "RT_HASH":"DF13080CC8ACD3EAD15735722D3EF98E3D1FA63A",
     "GEN_VERSION":"0",
     "TYPE":"0"
    }

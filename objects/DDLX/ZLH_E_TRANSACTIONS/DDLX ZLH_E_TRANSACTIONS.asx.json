@@ -7,9 +7,9 @@
     "DDLXNAME":"ZLH_E_TRANSACTIONS",
     "VERSION":"A",
     "CHANGED_BY":"SAP_CUSTOMER",
-    "CHANGED_ON":"2026-01-13",
-    "CHANGED_AT":"08:08:23",
-    "UUID":"FA163ECAAA341FD0BC8AE0FBD05F0157",
+    "CHANGED_ON":"2026-04-01",
+    "CHANGED_AT":"14:02:12",
+    "UUID":"FA163ECAAA341FD18BBA6C2ED01D419F",
     "ABAP_LANGUAGE_VERSION":"5"
    }
   ]
@@ -34,7 +34,7 @@
     "DDLXNAME":"ZLH_E_TRANSACTIONS",
     "VERSION":"A",
     "UUID":"",
-    "SOURCE":"@Metadata.layer: #CORE\r\n@UI.headerInfo: {\r\n  typeName:       'Transaction',\r\n  typeNamePlural: 'Transactions',\r\n  title:          { type: #STANDARD, value: 'TransactionId' },\r\n  description:    { type: #STANDARD, value: 'TransactionId' }\r\n}\r\n@UI.presentationVariant: [\r\n  {\r\n\r\n    sortOrder: [\r\n      {\r\n        by: 'TransactionId',\r\n        direction: #DESC\r\n      }\r\n    ],\r\n    visualizations: [{type: #AS_LINEITEM }]\r\n  }\r\n]\r\nannotate view ZLH_C_TRANSACTIONS with\r\n{\r\n  @UI.facet: [\r\n             { type: #IDENTIFICATION_REFERENCE,\r\n               purpose: #STANDARD,\r\n               label : 'Transactions',\r\n               id: 'Transactions' ,\r\n               position: 20 }\r\n               ]\r\n  @UI: { lineItem:       [ { label: 'Transaction ID', position: 10, importance: #HIGH } ] ,\r\n          identification: [{ label: 'Transaction ID', position: 10 }]  }\r\n  @EndUserText: { label: 'Transaction ID', quickInfo: 'Transaction ID' }\r\n\r\n  TransactionId;\r\n  @UI.hidden: true\r\n  BusinessPartner;\r\n  @UI.hidden: true\r\n  Membershipid;\r\n\r\n  @UI: { lineItem: [ {\r\n            label: 'Sales Order',\r\n            position: 20,\r\n            importance: #HIGH,\r\n            type: #WITH_INTENT_BASED_NAVIGATION,\r\n            semanticObject: 'SalesOrder',\r\n            semanticObjectAction: 'manageV2',\r\n            semanticObjectBinding: [{localElement: 'RefSalesorderId', element: 'SalesOrder'}]\r\n          } ],\r\n            identification: [{ label: 'Sales Order', position: 20 }]  }\r\n\r\n  RefSalesorderId;\r\n\r\n  @UI: { lineItem:       [ { label: 'Transaction Date', position: 40, importance: #HIGH } ] ,\r\n          identification: [{ label: 'Transaction Date', position: 40 }]  }\r\n  @EndUserText: { label: 'Transaction Date', quickInfo: 'Transaction Date' }\r\n\r\n  TransactionDate;\r\n\r\n  @UI: { lineItem:       [ { label: 'Activity Type', position: 30, importance: #HIGH } ] ,\r\n          identification: [{ label: 'Activity Type', position: 30 }]  }\r\n  @EndUserText: { label: 'Activity Type', quickInfo: 'Activity Type' }\r\n\r\n  @Consumption.valueHelpDefinition: [{\r\n  entity: { name: 'ZLH_I_ACTTYPEVH', element: 'value_low' },\r\n  label: 'Activity Type'\r\n                              }]\r\n\r\n  ActivityType;\r\n  @UI: { lineItem:       [ { label: 'Amount', position: 50, importance: #HIGH } ] ,\r\n          identification: [{ label: 'Amount', position: 50 }]  }\r\n  @EndUserText: { label: 'Amount', quickInfo: 'Amount' }\r\n\r\n  TransactionAmount;\r\n\r\n  @UI.hidden: true\r\n  @Consumption.valueHelpDefinition: [{\r\n      entity: { name: 'I_Currency', element: 'Currency' },\r\n     label: 'Currency'\r\n                              }]\r\n  TransactionCurrency;\r\n  @UI: { lineItem:       [ { label: 'Loyalty Points', position: 60, importance: #HIGH } ] ,\r\n          identification: [{ label: 'Loyalty Points', position: 60 }]  }\r\n  @EndUserText: { label: 'Loyalty Points', quickInfo: 'Loyalty Points' }\r\n\r\n  LoyaltyPoints;\r\n  @UI: { lineItem:       [ { label: 'Points Valid Until', position: 70, importance: #HIGH } ] ,\r\n          identification: [{ label: 'Points Valid Until', position: 70 }]  }\r\n  @EndUserText: { label: 'Points Valid Until', quickInfo: 'Points Valid Until' }\r\n  PointExpiryDate;\r\n\r\n  @UI.hidden: true\r\n  CreatedBy;\r\n\r\n  @UI.hidden: true\r\n  LastChangedat;\r\n\r\n  @UI.hidden: true\r\n  LastChangedby;\r\n\r\n}"
+    "SOURCE":"@Metadata.layer: #CORE\r\n@UI.headerInfo: {\r\n  typeName:       'Transaction',\r\n  typeNamePlural: 'Transactions',\r\n  title:          { type: #STANDARD, value: 'TransactionId' },\r\n  description:    { type: #STANDARD, value: 'TransactionId' }\r\n}\r\n@UI.presentationVariant: [\r\n  {\r\n\r\n    sortOrder: [\r\n      {\r\n        by: 'TransactionId',\r\n        direction: #DESC\r\n      }\r\n    ],\r\n    visualizations: [{type: #AS_LINEITEM }]\r\n  }\r\n]\r\nannotate view ZLH_C_TRANSACTIONS with\r\n{\r\n  @UI.facet: [\r\n             { type: #IDENTIFICATION_REFERENCE,\r\n               purpose: #STANDARD,\r\n               label : 'Transactions',\r\n               id: 'Transactions' ,\r\n               position: 20 }\r\n               ]\r\n  @UI: { lineItem:       [ { label: 'Transaction ID', position: 10, importance: #HIGH } ] ,\r\n          identification: [{ label: 'Transaction ID', position: 10 }]  }\r\n  @EndUserText: { label: 'Transaction ID', quickInfo: 'Transaction ID' }\r\n\r\n  TransactionId;\r\n  @UI.hidden: true\r\n  BusinessPartner;\r\n  @UI.hidden: true\r\n  Membershipid;\r\n\r\n  @UI: { lineItem: [ {\r\n            label: 'Sales Order',\r\n            position: 20,\r\n            importance: #HIGH,\r\n            type: #WITH_INTENT_BASED_NAVIGATION,\r\n            semanticObject: 'SalesOrder',\r\n            semanticObjectAction: 'manageV2',\r\n            semanticObjectBinding: [{localElement: 'RefSalesorderId', element: 'SalesOrder'}]\r\n          } ],\r\n            identification: [{ label: 'Sales Order', position: 20 }]  }\r\n\r\n  RefSalesorderId;\r\n\r\n  @UI: { lineItem:       [ { label: 'Transaction Date', position: 40, importance: #HIGH } ] ,\r\n          identification: [{ label: 'Transaction Date', position: 40 }]  }\r\n  @EndUserText: { label: 'Transaction Date', quickInfo: 'Transaction Date' }\r\n\r\n  TransactionDate;\r\n\r\n  @UI: { lineItem:       [ { label: 'Activity Type', position: 30, importance: #HIGH } ] ,\r\n          identification: [{ label: 'Activity Type', position: 30 }]  }\r\n  @EndUserText: { label: 'Activity Type', quickInfo: 'Activity Type' }\r\n\r\n  @Consumption.valueHelpDefinition: [{\r\n  entity: { name: 'ZLH_I_ACTTYPEVH', element: 'value_low' },\r\n  label: 'Activity Type'\r\n                              }]\r\n\r\n  ActivityType;\r\n  @UI: { lineItem:       [ { label: 'Amount', position: 50, importance: #HIGH } ] ,\r\n          identification: [{ label: 'Amount', position: 50 }]  }\r\n  @EndUserText: { label: 'Amount', quickInfo: 'Amount' }\r\n\r\n  TransactionAmount;\r\n\r\n\r\n  @UI.hidden: true\r\n  @Consumption.valueHelpDefinition: [{\r\n      entity: { name: 'I_Currency', element: 'Currency' },\r\n     label: 'Currency'\r\n                              }]\r\n  TransactionCurrency;\r\n//  @UI: { lineItem:       [ { label: 'Loyalty Points', position: 60, importance: #HIGH , criticality: 'ActivityCriticality', criticalityRepresentation: #WITHOUT_ICON } ] ,\r\n//          identification: [{ label: 'Loyalty Points', position: 60 }]  }\r\n//  @EndUserText: { label: 'Loyalty Points', quickInfo: 'Loyalty Points' }\r\n@UI.hidden: true\r\n  FormatedLoyaltyPoints;\r\n  @UI: { lineItem:       [ { label: 'Loyalty Points', position: 60, importance: #HIGH , criticality: 'ActivityCriticality', criticalityRepresentation: #WITHOUT_ICON } ] ,\r\n          identification: [{ label: 'Loyalty Points', position: 60 }]  }\r\n  @EndUserText: { label: 'Loyalty Points', quickInfo: 'Loyalty Points' }\r\n  @UI.textArrangement: #TEXT_ONLY\r\n  LoyaltyPoints;\r\n  @UI: { lineItem:       [ { label: 'Points Valid Until', position: 70, importance: #HIGH } ] ,\r\n          identification: [{ label: 'Points Valid Until', position: 70 }]  }\r\n  @EndUserText: { label: 'Points Valid Until', quickInfo: 'Points Valid Until' }\r\n  PointExpiryDate;\r\n\r\n  @UI.hidden: true\r\n  CreatedBy;\r\n\r\n  @UI.hidden: true\r\n  LastChangedat;\r\n\r\n  @UI.hidden: true\r\n  LastChangedby;\r\n\r\n}"
    }
   ]
  },
@@ -191,6 +191,13 @@
    },
    {
     "DDLXNAME":"ZLH_E_TRANSACTIONS",
+    "ELEMENT":"FORMATEDLOYALTYPOINTS",
+    "NAME":"UI.HIDDEN",
+    "ELEMENT_TYPE":"S",
+    "VALUE":"true"
+   },
+   {
+    "DDLXNAME":"ZLH_E_TRANSACTIONS",
     "ELEMENT":"LASTCHANGEDAT",
     "NAME":"UI.HIDDEN",
     "ELEMENT_TYPE":"S",
@@ -234,6 +241,20 @@
    {
     "DDLXNAME":"ZLH_E_TRANSACTIONS",
     "ELEMENT":"LOYALTYPOINTS",
+    "NAME":"UI.LINEITEM$1$.CRITICALITY",
+    "ELEMENT_TYPE":"S",
+    "VALUE":"'ActivityCriticality'"
+   },
+   {
+    "DDLXNAME":"ZLH_E_TRANSACTIONS",
+    "ELEMENT":"LOYALTYPOINTS",
+    "NAME":"UI.LINEITEM$1$.CRITICALITYREPRESENTATION",
+    "ELEMENT_TYPE":"S",
+    "VALUE":"#WITHOUT_ICON"
+   },
+   {
+    "DDLXNAME":"ZLH_E_TRANSACTIONS",
+    "ELEMENT":"LOYALTYPOINTS",
     "NAME":"UI.LINEITEM$1$.IMPORTANCE",
     "ELEMENT_TYPE":"S",
     "VALUE":"#HIGH"
@@ -251,6 +272,13 @@
     "NAME":"UI.LINEITEM$1$.POSITION",
     "ELEMENT_TYPE":"S",
     "VALUE":"60"
+   },
+   {
+    "DDLXNAME":"ZLH_E_TRANSACTIONS",
+    "ELEMENT":"LOYALTYPOINTS",
+    "NAME":"UI.TEXTARRANGEMENT",
+    "ELEMENT_TYPE":"S",
+    "VALUE":"#TEXT_ONLY"
    },
    {
     "DDLXNAME":"ZLH_E_TRANSACTIONS",
@@ -822,8 +850,8 @@
     "EXTENDED_ARTIFACT":"ZLH_C_TRANSACTIONS",
     "VARIANT":"",
     "LAYER":1500,
-    "DT_UUID":"FA163ECAAA341FD0BC8AE0FBD05F0157",
-    "RT_HASH":"3F2E89D91C0A1AE892B44B4E878A489BE5644E0F",
+    "DT_UUID":"FA163ECAAA341FD18BBA6C2ED01D419F",
+    "RT_HASH":"CBD02490079AEB01051D867FDAD168B44D18BA14",
     "GEN_VERSION":"0",
     "TYPE":"0"
    }
@@ -872,6 +900,16 @@
     "REF_OBJECT_SUBTYPE":"DO",
     "REF_OBJECT_NAME":"ZLH_I_ACTTYPEVH",
     "REF_OBJECT_ELEMENT":""
+   },
+   {
+    "DDLXNAME":"ZLH_E_TRANSACTIONS",
+    "ELEMENT":"LOYALTYPOINTS",
+    "NAME":"UI.LINEITEM$1$.CRITICALITY",
+    "PATH":"ACTIVITYCRITICALITY",
+    "REF_OBJECT_TYPE":"STOB",
+    "REF_OBJECT_SUBTYPE":"DOF",
+    "REF_OBJECT_NAME":"ZLH_C_TRANSACTIONS",
+    "REF_OBJECT_ELEMENT":"ACTIVITYCRITICALITY"
    },
    {
     "DDLXNAME":"ZLH_E_TRANSACTIONS",

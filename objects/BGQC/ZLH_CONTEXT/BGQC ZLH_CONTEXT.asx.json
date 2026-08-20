@@ -1,0 +1,55 @@
+[
+ {
+  "table":"BGQC_SERVICE",
+  "data":
+  [
+   {
+    "BGQC_NAME":"ZLH_CONTEXT",
+    "CHANGED_BY":"SAP_CUSTOMER",
+    "CHANGED_AT":"+20260417121007.0000000",
+    "ABAP_LANGUAGE_VERSION":"5"
+   }
+  ]
+ },
+ {
+  "table":"BGQC_SERVICET",
+  "data":
+  [
+   {
+    "LANGU":"E",
+    "BGQC_NAME":"ZLH_CONTEXT",
+    "TEXT":"Loyalty Hub Sales Order Processing"
+   }
+  ]
+ },
+ {
+  "table":"TADIR",
+  "data":
+  [
+   {
+    "PGMID":"R3TR",
+    "OBJECT":"BGQC",
+    "OBJ_NAME":"ZLH_CONTEXT",
+    "KORRNUM":"",
+    "SRCSYSTEM":"...",
+    "AUTHOR":"SAP_CUSTOMER",
+    "SRCDEP":"",
+    "DEVCLASS":"ZPRA_LOYALTYHUB",
+    "GENFLAG":"",
+    "EDTFLAG":"",
+    "CPROJECT":" L",
+    "MASTERLANG":"E",
+    "VERSID":"",
+    "PAKNOCHECK":"",
+    "OBJSTABLTY":"",
+    "COMPONENT":"",
+    "CRELEASE":"",
+    "DELFLAG":"",
+    "TRANSLTTXT":"",
+    "CREATED_ON":"2026-04-17",
+    "CHECK_DATE":"2026-04-17",
+    "CHECK_CFG":""
+   }
+  ]
+ }
+]

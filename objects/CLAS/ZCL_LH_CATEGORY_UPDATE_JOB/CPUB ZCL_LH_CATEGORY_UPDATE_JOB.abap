@@ -1,3 +1,4 @@
+
 CLASS zcl_lh_category_update_job DEFINITION
   PUBLIC
   FINAL
