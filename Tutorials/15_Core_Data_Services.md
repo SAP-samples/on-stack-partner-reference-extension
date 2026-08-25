@@ -138,6 +138,7 @@ The behavior definition for business partner declares all validations, determina
 #### Actions
 - `createMembership result [1] $self`
 - `deleteMembership result [1] $self`
+- `reactivateMembership result [1] $self`
 - `createCategory parameter ZLH_D_LHCREATECATEGORYP`
 
 #### Draft Handling
@@ -153,6 +154,7 @@ Additional draft actions: `Activate`, `Resume`, `Discard`
 - `createMembership` → affects `_Category`
 - `createCategory` → affects `_Category`
 - `deleteMembership` → affects `_GiftCard`, `_Category`
+- `reactivateMembership` → affects `_MemberShip`, `_Category`
 
 #### Notes on Behavior of Child Entities
 Child entities define their own specific rules, validations, and number generation logic.

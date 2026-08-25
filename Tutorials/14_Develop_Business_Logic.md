@@ -99,6 +99,10 @@ To make the action available to use, you need to make it available in the projec
   use action createMembership;
 ```
 
+### Representative Action: reactivateMembership
+
+This action allows a user to reactivate a membership that has been deactivated. The button is only visible when the membership status is Inactive. On reactivation, the membership end date is set to 31/12/9999 and the latest category is restored to Active status.
+
 #### More Actions
 
 Other implemented actions are:

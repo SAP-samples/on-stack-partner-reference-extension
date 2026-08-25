@@ -102,11 +102,11 @@ If you prefer a quick start with a deployment of the **Loyalty Hub** application
    
  2. Integration and gift card extension
     1. [Sales Order Integration with Loyalty Hub](./Tutorials/20_Event_Based_Integration.md)
-    2. [Sales Order Gift Card Extension](./Tutorials/21_extending_sales_order_giftcard_scenario.md)
+    2. [Sales Order Gift Card Extension](./Tutorials/21_Extending_sales_order_giftcard_scenario.md)
  3. Custom UI extension navigation
     1. [Extending the User Interface of the Application Using Freestyle SAPUI5 or SAP Fiori Elements](./Tutorials/30_Extend_User_Interface.md)
-    2. [Navigation Links and Semantic Actions](./Tutorials/31_navigation.md)
- 4. [Reuse Services and Other Features](./Tutorials/40_Reuse_Services.md)
+    2. [Navigation Links and Semantic Actions](./Tutorials/31_Navigation.md)
+ 4. [Resuse Services and Other Features](./Tutorials/40_Reuse_Services.md)
     1. [Number Range](./Tutorials/41_NumberRange.md)
     2. [Application Job for Category Upgrade](./Tutorials/42_Application_Job_Category_Update.md)
     3. [Email Notification on Category Upgrade](./Tutorials/43_Email_Notification_Category_Update.md)

@@ -222,7 +222,7 @@ Use your `ZPRA_LOYALTYHUB` message class:
 
 ## Gift Card API 
 
-This section explains the `ZCL_LH_GIFTCARD_API` gift card API class that backs the `zz_use_gift_card` sales order action.  
+This section explains the `ZIF_LH_GIFTCARD_API` gift card API interface and its implementation `ZCL_LH_GIFTCARD_API`, which backs the `zz_use_gift_card` sales order action. The class implements the interface and exposes a `get_instance()` factory method returning a `REF TO zif_lh_giftcard_api`.  
 It covers the public methods, parameters, errors, and example usage in the behavior handler.
 
 ---
@@ -237,7 +237,7 @@ It covers the public methods, parameters, errors, and example usage in the behav
 ---
 
 ### Public Interface
-Below are two public methods provided by the class:
+Below are two public methods provided by the interface:
 
 **`read_gift_card_balance`**
 
@@ -251,15 +251,21 @@ Below are two public methods provided by the class:
 
 **Example call:**
 
-    zcl_lh_giftcard_api=>read_gift_card_balance(
+```abap
+DATA(lo_giftcard_api) = zcl_lh_giftcard_api=>get_instance( ).
+TRY.
+    lo_giftcard_api->read_gift_card_balance(
       EXPORTING business_partner = salesorder_detail-SoldToParty
       IMPORTING total_balance    = available_gc_balance
                 currency         = available_gc_currency ).
+  CATCH zcx_lh_giftcard INTO DATA(exp_balance).
+    DATA(msg_balance) = exp_balance->get_text( ).
+ENDTRY.
+```
 
 #### `redeem_gift_card_amount`
 
 - **Input:** `business_partner`, `amount`, `currency`  
-- **Output:** `new_balance` after redemption  
 - **Errors:**
   - `insufficient_balance` if requested amount exceeds current total.
   - Generic exception on update failure (for example locks or validations).
@@ -268,16 +274,20 @@ Below are two public methods provided by the class:
   - Reads all active cards for the partner, sorts by `CreatedOn` (FIFO).
   - Iteratively reduces `GiftcardBalance` across cards using `nmin(...)`.
   - Performs RAP `MODIFY ENTITIES` to update balances in one transaction.
-- **Post‑condition:**
-  - `new_balance = current_total - amount`.
 
 **Example call:**
 
-    zcl_lh_giftcard_api=>redeem_gift_card_amount(
+```abap
+TRY.
+    lo_giftcard_api->redeem_gift_card_amount(
       EXPORTING business_partner = salesorder_detail-SoldToParty
-                amount           = giftcard_amount
-                currency         = salesorder_detail-TransactionCurrency
-      IMPORTING new_balance      = DATA(updated_total) ).
+                amount           = iv_giftcard_amount
+                currency         = salesorder_detail-TransactionCurrency ).
+  CATCH zcx_lh_giftcard INTO DATA(exp_redeem).
+    DATA(msg_redeem) = exp_redeem->get_text( ).
+    redeem_status = 'F'.
+ENDTRY.
+```
 
 ---
 
